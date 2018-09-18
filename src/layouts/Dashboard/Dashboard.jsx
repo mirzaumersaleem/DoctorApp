@@ -69,7 +69,7 @@ class App extends React.Component {
   render() {
     const { classes, ...rest } = this.props;
     return (
-      <div className={classes.wrapper}>
+      <div className={classes.wrapper} >
         <Sidebar
           routes={dashboardRoutes}
           logoText={"Doctar APP"}
@@ -80,13 +80,13 @@ class App extends React.Component {
           color="blue"
           {...rest}
         />
-        <div className={classes.mainPanel} ref="mainPanel">
+        <div className={classes.mainPanel} ref="mainPanel" style={{'margin-top':'0'}}>
           {this.getRoute() ? (
-            <div className={classes.content}>
-              <div className={classes.container}>{switchRoutes}</div>
+            <div className={classes.content} style={{'margin-top':'0'}}>
+              <div className={classes.container} style={{'margin-top':'0'}}>{switchRoutes}</div>
             </div>
           ) : (
-            <div className={classes.map}>{switchRoutes}</div>
+            <div className={classes.map} style={{'margin-top':'0'}}>{switchRoutes}</div>
           )}
           {this.getRoute() ? <Footer /> : null}
         </div>

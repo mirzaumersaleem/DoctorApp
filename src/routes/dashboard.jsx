@@ -33,12 +33,12 @@ const dashboardRoutes = [
     icon: Dashboard,
     component: Pirority
   },
-  {
-    path: "/patientDetails",
-    sidebarName: "Patient Details",
-    icon: Dashboard,
-    component: PatientDetails
-  },
+  // {
+  //   path: "/patientDetails",
+  //   sidebarName: "Patient Details",
+  //   icon: Dashboard,
+  //   component: PatientDetails
+  // },
   {
     path: "/patientReport",
     sidebarName: "Patient Report",

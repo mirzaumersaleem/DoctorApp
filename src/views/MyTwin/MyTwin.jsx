@@ -1,24 +1,41 @@
 import React from "react";
-// @material-ui/core components
 import PropTypes from "prop-types";
-import withStyles from "@material-ui/core/styles/withStyles";
-import InputLabel from "@material-ui/core/InputLabel";
-// core components
+import classNames from "classnames";
+import { withStyles } from "@material-ui/core/styles";
+import MenuItem from "@material-ui/core/MenuItem";
+import TextField from "@material-ui/core/TextField";
+import Paper from "@material-ui/core/Paper";
+import Typography from "@material-ui/core/Typography";
 import GridItem from "components/Grid/GridItem.jsx";
 import GridContainer from "components/Grid/GridContainer.jsx";
-import CustomInput from "components/CustomInput/CustomInput.jsx";
 import Button from "components/CustomButtons/Button.jsx";
 import Card from "components/Card/Card.jsx";
 import CardHeader from "components/Card/CardHeader.jsx";
-import CardAvatar from "components/Card/CardAvatar.jsx";
 import CardBody from "components/Card/CardBody.jsx";
-import CardFooter from "components/Card/CardFooter.jsx";
-import TextField from "@material-ui/core/TextField";
-import avatar from "assets/img/faces/marc.jpg";
 import axios from "axios";
-import querystring from "querystring";
 
-const styles = {
+const styles = theme => ({
+  root: {
+    ...theme.mixins.gutters(),
+    paddingTop: theme.spacing.unit * 2,
+    paddingBottom: theme.spacing.unit * 2
+  },
+  container: {
+    display: "flex",
+    flexWrap: "wrap"
+  },
+  textField: {
+    marginLeft: theme.spacing.unit,
+    marginRight: theme.spacing.unit,
+    borderLeftWidth: 4,
+    borderRightWidth: 4
+  },
+  dense: {
+    marginTop: 16
+  },
+  menu: {
+    width: 200
+  },
   cardCategoryWhite: {
     color: "rgba(255,255,255,.62)",
     margin: "0",
@@ -35,31 +52,39 @@ const styles = {
     marginBottom: "3px",
     textDecoration: "none"
   }
-};
+});
 
-class Dashboard extends React.Component {
+class FilledTextFields extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      patient1: "",
-      patient2: "",
-      patient3: "",
-      patient4: "",
-      patient5: "",
-      patient6: "",
-      patient7: "",
-      id1: "",
-      id2: "",
-      id3: "",
-      id4: "",
-      id5: "",
-      id6: "",
-      id7: "",
+      patient1Name: "",
+      patient1Details: "",
+      patient2Name: "",
+      patient2Details: "",
+      patient3Name: "",
+      patient3Details: "",
+      patient4Name: "",
+      patient4Details: "",
+      patient5Name: "",
+      patient5Details: "",
+      patient6Name: "",
+      patient6Details: "",
+      patient7Name: "",
+      patient7Details: "",
+      patient1ID: "1",
+      patient2ID: "2",
+      patient3ID: "3",
+      patient4ID: "4",
+      patient5ID: "5",
+      patient6ID: "6",
+      patient7ID: "7",
+      id: "1",
       action: ""
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
-    this.handleDelete = this.handleDelete.bind(this);
+    this.handleEdit = this.handleEdit.bind(this);
   }
 
   handleChange(event) {
@@ -69,256 +94,637 @@ class Dashboard extends React.Component {
   handleSubmit(event) {
     event.preventDefault();
     console.log(event, "event");
-   
-    var twins = this.state.patient1 + ';' + this.state.patient2 + ';' + this.state.patient3 + ';' + this.state.patient4 + ';' + this.state.patient5 + ';' + this.state.patient6 + ';' + this.state.patient7
-  
-    var headers= {
-        'x-access-key': 'KOOY-9CV8-RO09-Q43W'
-     }
+    console.log(this.state, "state");
+    var twins = null;
+    var serial_no = null;
+    var introduction = null;
+    if (this.state.patient1Name) {
+      twins = this.state.patient1Name;
+      serial_no = this.state.patient1ID;
+      introduction = this.state.patient1Details;
+    } else if (this.state.patient2Name) {
+      twins = this.state.patient2Name;
+      serial_no = this.state.patient2ID;
+      introduction = this.state.patient2Details;
+    } else if (this.state.patient3Name) {
+      twins = this.state.patient3Name;
+      serial_no = this.state.patient3ID;
+      introduction = this.state.patient3Details;
+    } else if (this.state.patient4Name) {
+      twins = this.state.patient4Name;
+      serial_no = this.state.patient4ID;
+      introduction = this.state.patient4Details;
+    } else if (this.state.patient5Name) {
+      twins = this.state.patient5Name;
+      serial_no = this.state.patient5ID;
+      introduction = this.state.patient5Details;
+    } else if (this.state.patient6Name) {
+      twins = this.state.patient6Name;
+      serial_no = this.state.patient6ID;
+      introduction = this.state.patient6Details;
+    }
+
+    var headers = {
+      "x-access-key": "KOOY-9CV8-RO09-Q43W"
+    };
     //   },
     //   twins: querystring.stringify(twins),
     //   url: 'https://twin-patient.herokuapp.com/api/users/setTwin'
     // };
     var data = {
-      'twins' : twins
-    }
+      twins: twins,
+      serial_no: serial_no,
+      introduction: introduction
+    };
+    console.log(data, "data");
 
-    axios.post('https://twin-patient.herokuapp.com/api/users/setTwin', data, { headers : headers})
-      .then((response) => {
-        console.log(response)
+    axios
+      .post("https://twin-patient.herokuapp.com/api/users/setTwin", data, {
+        headers: headers
       })
-      .catch((error) => {
-        console.log(error)
+      .then(response => {
+        console.log(response);
       })
-
+      .catch(error => {
+        console.log(error);
+      });
   }
 
-  handleDelete(event) {
+  handleEdit(event) {
     event.preventDefault();
+    console.log(event, "event");
     console.log(this.state, "state");
+    var twins = null;
+    var serial_no = null;
+    var introduction = null;
+    if (this.state.patient1Name) {
+      twins = this.state.patient1Name;
+      serial_no = this.state.patient1ID;
+      introduction = this.state.patient1Details;
+    } else if (this.state.patient2Name) {
+      twins = this.state.patient2Name;
+      serial_no = this.state.patient2ID;
+      introduction = this.state.patient2Details;
+    } else if (this.state.patient3Name) {
+      twins = this.state.patient3Name;
+      serial_no = this.state.patient3ID;
+      introduction = this.state.patient3Details;
+    } else if (this.state.patient4Name) {
+      twins = this.state.patient4Name;
+      serial_no = this.state.patient4ID;
+      introduction = this.state.patient4Details;
+    } else if (this.state.patient5Name) {
+      twins = this.state.patient5Name;
+      serial_no = this.state.patient5ID;
+      introduction = this.state.patient5Details;
+    } else if (this.state.patient6Name) {
+      twins = this.state.patient6Name;
+      serial_no = this.state.patient6ID;
+      introduction = this.state.patient6Details;
+    }
+
+    var headers = {
+      "x-access-key": "KOOY-9CV8-RO09-Q43W"
+    };
+    //   },
+    //   twins: querystring.stringify(twins),
+    //   url: 'https://twin-patient.herokuapp.com/api/users/setTwin'
+    // };
+    var data = {
+      twins: twins,
+      serial_no: serial_no,
+      introduction: introduction
+    };
+    console.log(data, "data");
+
+    axios
+      .post("https://twin-patient.herokuapp.com/api/users/editTwin", data, {
+        headers: headers
+      })
+      .then(response => {
+        console.log(response);
+      })
+      .catch(error => {
+        console.log(error);
+      });
   }
 
   render() {
     const { classes } = this.props;
     return (
-      <div>
-        <GridContainer>
-          <GridItem xs={12} sm={12} md={12}>
-            <form onSubmit={this.handleSubmit}>
-              <Card>
-                <CardHeader color="primary">
-                  <h4 className={classes.cardTitleWhite}> My Twins</h4>
-                </CardHeader>
-                <CardBody>
-                  <GridContainer>
-                    <GridItem xs={12} sm={12} md={4}>
-                      <TextField
-                        id="full-width-text-field"
-                        label="ID 1"
-                        fullWidth
-                        margin="normal"
-                        name="id1"
-                        value={this.state.id1}
-                        onChange={this.handleChange}
-                        required
-                      />
-                    </GridItem>
-                    <GridItem xs={12} sm={12} md={6}>
-                      <TextField
-                        id="full-width-text-field"
-                        label="Patient 1"
-                        fullWidth
-                        margin="normal"
-                        name="patient1"
-                        value={this.state.patient1}
-                        onChange={this.handleChange}
-                        required
-                      />
-                    </GridItem>
-                  </GridContainer>
-                  <GridContainer>
-                    <GridItem xs={12} sm={12} md={4}>
-                      <TextField
-                        id="full-width-text-field"
-                        label="ID 2"
-                        fullWidth
-                        margin="normal"
-                        name="id2"
-                        value={this.state.id2}
-                        onChange={this.handleChange}
-                        required
-                      />
-                    </GridItem>
-                    <GridItem xs={12} sm={12} md={6}>
-                      <TextField
-                        id="full-width-text-field"
-                        label="Patient 2"
-                        fullWidth
-                        margin="normal"
-                        name="patient2"
-                        value={this.state.patient2}
-                        onChange={this.handleChange}
-                        required
-                      />
-                    </GridItem>
-                  </GridContainer>
-                  <GridContainer>
-                    <GridItem xs={12} sm={12} md={4}>
-                      <TextField
-                        id="full-width-text-field"
-                        label="ID 3"
-                        fullWidth
-                        margin="normal"
-                        name="id3"
-                        value={this.state.id3}
-                        onChange={this.handleChange}
-                        required
-                      />
-                    </GridItem>
-                    <GridItem xs={12} sm={12} md={6}>
-                      <TextField
-                        id="full-width-text-field"
-                        label="Patient 3"
-                        fullWidth
-                        margin="normal"
-                        name="patient3"
-                        value={this.state.patient3}
-                        onChange={this.handleChange}
-                        required
-                      />
-                    </GridItem>
-                  </GridContainer>
-                  <GridContainer>
-                    <GridItem xs={12} sm={12} md={4}>
-                      <TextField
-                        id="full-width-text-field"
-                        label="ID 4"
-                        fullWidth
-                        margin="normal"
-                        name="id4"
-                        value={this.state.id4}
-                        onChange={this.handleChange}
-                        required
-                      />
-                    </GridItem>
-                    <GridItem xs={12} sm={12} md={6}>
-                      <TextField
-                        id="full-width-text-field"
-                        label="Patient 4"
-                        fullWidth
-                        margin="normal"
-                        name="patient4"
-                        value={this.state.patient4}
-                        onChange={this.handleChange}
-                        required
-                      />
-                    </GridItem>
-                  </GridContainer>
-                  <GridContainer>
-                    <GridItem xs={12} sm={12} md={4}>
-                      <TextField
-                        id="full-width-text-field"
-                        label="ID 5"
-                        fullWidth
-                        margin="normal"
-                        name="id5"
-                        value={this.state.id5}
-                        onChange={this.handleChange}
-                        required
-                      />
-                    </GridItem>
-                    <GridItem xs={12} sm={12} md={6}>
-                      <TextField
-                        id="full-width-text-field"
-                        label="Patient 5"
-                        fullWidth
-                        margin="normal"
-                        name="patient5"
-                        value={this.state.patient5}
-                        onChange={this.handleChange}
-                        required
-                      />
-                    </GridItem>
-                  </GridContainer>
-                  <GridContainer>
-                    <GridItem xs={12} sm={12} md={4}>
-                      <TextField
-                        id="full-width-text-field"
-                        label="ID 6"
-                        fullWidth
-                        margin="normal"
-                        name="id6"
-                        value={this.state.id6}
-                        onChange={this.handleChange}
-                        required
-                      />
-                    </GridItem>
-                    <GridItem xs={12} sm={12} md={6}>
-                      <TextField
-                        id="full-width-text-field"
-                        label="Patient 6"
-                        fullWidth
-                        margin="normal"
-                        name="patient6"
-                        value={this.state.patient6}
-                        onChange={this.handleChange}
-                        required
-                      />
-                    </GridItem>
-                  </GridContainer>
-                  <GridContainer>
-                    <GridItem xs={12} sm={12} md={4}>
-                      <TextField
-                        id="full-width-text-field"
-                        label="ID 7"
-                        fullWidth
-                        margin="normal"
-                        name="id7"
-                        value={this.state.id7}
-                        onChange={this.handleChange}
-                        required
-                      />
-                    </GridItem>
-                    <GridItem xs={12} sm={12} md={6}>
-                      <TextField
-                        id="full-width-text-field"
-                        label="Patient 7"
-                        fullWidth
-                        margin="normal"
-                        name="patient7"
-                        value={this.state.patient7}
-                        onChange={this.handleChange}
-                        required
-                      />
-                    </GridItem>
-                  </GridContainer>
-                </CardBody>
-                <CardFooter>
-                  <Button
-                    color="primary"
-                    type="submit"
-                  >
-                    Add All
-                  </Button>
-                  <Button
-                    color="primary"
-                    type="submit"
-                    onClick={this.handleDelete}
-                  >
-                    Delete All
-                  </Button>
-                </CardFooter>
-              </Card>
-            </form>
-          </GridItem>
-        </GridContainer>
-      </div>
+      <GridContainer>
+        <GridItem xs={12} sm={12} md={12}>
+          <Card>
+            <CardHeader color="primary">
+              <h4 className={classes.cardTitleWhite}> My Twins</h4>
+            </CardHeader>
+            <CardBody>
+              <Paper className={classes.root} elevation={1}>
+                <form onSubmit={this.handleSubmit}>
+                  <Typography variant="headline" component="h3">
+                    <GridContainer className={classes.container}>
+                      <GridItem xs={12} sm={12} md={2}>
+                        <TextField
+                          id="full-width-text-field"
+                          label="Patient ID"
+                          fullWidth
+                          margin="normal"
+                          name="patient1"
+                          className={classes.textField}
+                          value={this.state.patient1ID}
+                          onChange={this.handleChange}
+                          variant="outlined"
+                          readonly
+                        />
+                      </GridItem>
+                      <GridItem xs={12} sm={12} md={10}>
+                        <TextField
+                          id="full-width-text-static"
+                          label="Patient Name 1"
+                          fullWidth
+                          margin="normal"
+                          name="patient1Name"
+                          className={classes.textField}
+                          value={this.state.patient1Name}
+                          onChange={this.handleChange}
+                          variant="outlined"
+                          required
+                        />
+                        <input type="hidden" value={(this.state.id = "1")} />
+                      </GridItem>
+                    </GridContainer>
+                  </Typography>
+                  <Typography component="p">
+                    <TextField
+                      id="full-width-text-static"
+                      label="Patient Details 1"
+                      fullWidth
+                      multiline
+                      rows="4"
+                      margin="normal"
+                      name="patient1Details"
+                      className={classes.textField}
+                      value={this.state.patient1Details}
+                      onChange={this.handleChange}
+                      variant="outlined"
+                      required
+                    />
+                    <Button
+                      color="primary"
+                      type="submit"
+                      style={{ "margin-top": "2%" }}
+                    >
+                      Add
+                    </Button>
+                    <Button
+                      color="primary"
+                      type="submit"
+                      onClick={this.handleEdit}
+                      style={{ "margin-top": "2%" }}
+                    >
+                      Edit
+                    </Button>
+                  </Typography>
+                </form>
+              </Paper>
+              <Paper
+                className={classes.root}
+                elevation={1}
+                style={{ "margin-top": "2%" }}
+              >
+                <form onSubmit={this.handleSubmit}>
+                  <Typography variant="headline" component="h3">
+                    <GridContainer className={classes.container}>
+                      <GridItem xs={12} sm={12} md={2}>
+                        <TextField
+                          id="full-width-text-field"
+                          label="Patient ID"
+                          fullWidth
+                          margin="normal"
+                          name="patient1"
+                          className={classes.textField}
+                          value={this.state.patient2ID}
+                          // onChange={this.handleChange}
+                          variant="outlined"
+                          readonly
+                        />
+                      </GridItem>
+                      <GridItem xs={12} sm={12} md={10}>
+                        <TextField
+                          id="full-width-text-static"
+                          label="Patient Name 2"
+                          fullWidth
+                          margin="normal"
+                          name="patient2Name"
+                          className={classes.textField}
+                          value={this.state.patient2Name}
+                          onChange={this.handleChange}
+                          variant="outlined"
+                          required
+                        />
+                      </GridItem>
+                    </GridContainer>
+                  </Typography>
+                  <Typography component="p">
+                    <TextField
+                      id="full-width-text-static"
+                      label="Patient Details 2"
+                      fullWidth
+                      multiline
+                      rows="4"
+                      margin="normal"
+                      name="patient2Details"
+                      className={classes.textField}
+                      value={this.state.patient2Details}
+                      onChange={this.handleChange}
+                      variant="outlined"
+                      required
+                    />
+                    <Button
+                      color="primary"
+                      type="submit"
+                      style={{ "margin-top": "2%" }}
+                    >
+                      Add
+                    </Button>
+                    <Button
+                      color="primary"
+                      type="submit"
+                      onClick={this.handleEdit}
+                      style={{ "margin-top": "2%" }}
+                    >
+                      Edit
+                    </Button>
+                  </Typography>
+                </form>
+              </Paper>
+              <Paper
+                className={classes.root}
+                elevation={1}
+                style={{ "margin-top": "2%" }}
+              >
+                <form onSubmit={this.handleSubmit}>
+                  <Typography variant="headline" component="h3">
+                    <GridContainer className={classes.container}>
+                      <GridItem xs={12} sm={12} md={2}>
+                        <TextField
+                          id="full-width-text-field"
+                          label="Patient ID"
+                          fullWidth
+                          margin="normal"
+                          name="patient3ID"
+                          className={classes.textField}
+                          value={this.state.patient3ID}
+                          // onChange={this.handleChange}
+                          variant="outlined"
+                          readonly
+                        />
+                      </GridItem>
+                      <GridItem xs={12} sm={12} md={10}>
+                        <TextField
+                          id="full-width-text-static"
+                          label="Patient Name 3"
+                          fullWidth
+                          margin="normal"
+                          name="patient3Name"
+                          className={classes.textField}
+                          value={this.state.patient3Name}
+                          onChange={this.handleChange}
+                          variant="outlined"
+                          required
+                        />
+                      </GridItem>
+                    </GridContainer>
+                  </Typography>
+                  <Typography component="p">
+                    <TextField
+                      id="full-width-text-static"
+                      label="Patient Details 3"
+                      fullWidth
+                      multiline
+                      rows="4"
+                      margin="normal"
+                      name="patient3Details"
+                      className={classes.textField}
+                      value={this.state.patient3Details}
+                      onChange={this.handleChange}
+                      variant="outlined"
+                      required
+                    />
+                    <Button
+                      color="primary"
+                      type="submit"
+                      style={{ "margin-top": "2%" }}
+                    >
+                      Add
+                    </Button>
+                    <Button
+                      color="primary"
+                      type="submit"
+                      onClick={this.handleEdit}
+                      style={{ "margin-top": "2%" }}
+                    >
+                      Edit
+                    </Button>
+                  </Typography>
+                </form>
+              </Paper>
+              <Paper
+                className={classes.root}
+                elevation={1}
+                style={{ "margin-top": "2%" }}
+              >
+                <form onSubmit={this.handleSubmit}>
+                  <Typography variant="headline" component="h3">
+                    <GridContainer className={classes.container}>
+                      <GridItem xs={12} sm={12} md={2}>
+                        <TextField
+                          id="full-width-text-field"
+                          label="Patient ID"
+                          fullWidth
+                          margin="normal"
+                          name="patient4ID"
+                          className={classes.textField}
+                          value={this.state.patient4ID}
+                          // onChange={this.handleChange}
+                          variant="outlined"
+                          readonly
+                        />
+                      </GridItem>
+                      <GridItem xs={12} sm={12} md={10}>
+                        <TextField
+                          id="full-width-text-static"
+                          label="Patient Name 4"
+                          fullWidth
+                          margin="normal"
+                          name="patient4Name"
+                          className={classes.textField}
+                          value={this.state.patient4Name}
+                          onChange={this.handleChange}
+                          variant="outlined"
+                          required
+                        />
+                      </GridItem>
+                    </GridContainer>
+                  </Typography>
+                  <Typography component="p">
+                    <TextField
+                      id="full-width-text-static"
+                      label="Patient Details 4"
+                      fullWidth
+                      multiline
+                      rows="4"
+                      margin="normal"
+                      name="patient4Details"
+                      className={classes.textField}
+                      value={this.state.patient4Details}
+                      onChange={this.handleChange}
+                      variant="outlined"
+                      required
+                    />
+                    <Button
+                      color="primary"
+                      type="submit"
+                      style={{ "margin-top": "2%" }}
+                    >
+                      Add
+                    </Button>
+                    <Button
+                      color="primary"
+                      type="submit"
+                      onClick={this.handleEdit}
+                      style={{ "margin-top": "2%" }}
+                    >
+                      Edit
+                    </Button>
+                  </Typography>
+                </form>
+              </Paper>
+              <Paper
+                className={classes.root}
+                elevation={1}
+                style={{ "margin-top": "2%" }}
+              >
+                <form onSubmit={this.handleSubmit}>
+                  <Typography variant="headline" component="h3">
+                    <GridContainer className={classes.container}>
+                      <GridItem xs={12} sm={12} md={2}>
+                        <TextField
+                          id="full-width-text-field"
+                          label="Patient ID"
+                          fullWidth
+                          margin="normal"
+                          name="patient5ID"
+                          className={classes.textField}
+                          value={this.state.patient5ID}
+                          // onChange={this.handleChange}
+                          variant="outlined"
+                          readonly
+                        />
+                      </GridItem>
+                      <GridItem xs={12} sm={12} md={10}>
+                        <TextField
+                          id="full-width-text-static"
+                          label="Patient Name 5"
+                          fullWidth
+                          margin="normal"
+                          name="patient5Name"
+                          className={classes.textField}
+                          value={this.state.patient5Name}
+                          onChange={this.handleChange}
+                          variant="outlined"
+                          required
+                        />
+                        <input type="hidden" value={(this.state.id = "5")} />
+                      </GridItem>
+                    </GridContainer>
+                  </Typography>
+                  <Typography component="p">
+                    <TextField
+                      id="full-width-text-static"
+                      label="Patient Details 5"
+                      fullWidth
+                      multiline
+                      rows="4"
+                      margin="normal"
+                      name="patient5Details"
+                      className={classes.textField}
+                      value={this.state.patient5Details}
+                      onChange={this.handleChange}
+                      variant="outlined"
+                      required
+                    />
+                    <Button
+                      color="primary"
+                      type="submit"
+                      style={{ "margin-top": "2%" }}
+                    >
+                      Add
+                    </Button>
+                    <Button
+                      color="primary"
+                      type="submit"
+                      onClick={this.handleEdit}
+                      style={{ "margin-top": "2%" }}
+                    >
+                      Edit
+                    </Button>
+                  </Typography>
+                </form>
+              </Paper>
+              <Paper
+                className={classes.root}
+                elevation={1}
+                style={{ "margin-top": "2%" }}
+              >
+                <form onSubmit={this.handleSubmit}>
+                  <Typography variant="headline" component="h3">
+                    <GridContainer className={classes.container}>
+                      <GridItem xs={12} sm={12} md={2}>
+                        <TextField
+                          id="full-width-text-field"
+                          label="Patient ID"
+                          fullWidth
+                          margin="normal"
+                          name="patient6ID"
+                          className={classes.textField}
+                          value={this.state.patient6ID}
+                          // onChange={this.handleChange}
+                          variant="outlined"
+                          readonly
+                        />
+                      </GridItem>
+                      <GridItem xs={12} sm={12} md={10}>
+                        <TextField
+                          id="full-width-text-static"
+                          label="Patient Name 6"
+                          fullWidth
+                          margin="normal"
+                          name="patient6Name"
+                          className={classes.textField}
+                          value={this.state.patient6Name}
+                          onChange={this.handleChange}
+                          variant="outlined"
+                          required
+                        />
+                        <input type="hidden" value={(this.state.id = "6")} />
+                      </GridItem>
+                    </GridContainer>
+                  </Typography>
+                  <Typography component="p">
+                    <TextField
+                      id="full-width-text-static"
+                      label="Patient Details 6"
+                      fullWidth
+                      multiline
+                      rows="4"
+                      margin="normal"
+                      name="patient6Details"
+                      className={classes.textField}
+                      value={this.state.patient6Details}
+                      onChange={this.handleChange}
+                      variant="outlined"
+                      required
+                    />
+                    <Button
+                      color="primary"
+                      type="submit"
+                      style={{ "margin-top": "2%" }}
+                    >
+                      Add
+                    </Button>
+                    <Button
+                      color="primary"
+                      type="submit"
+                      onClick={this.handleEdit}
+                      style={{ "margin-top": "2%" }}
+                    >
+                      Edit
+                    </Button>
+                  </Typography>
+                </form>
+              </Paper>
+              <Paper
+                className={classes.root}
+                elevation={1}
+                style={{ "margin-top": "2%" }}
+              >
+                <form onSubmit={this.handleSubmit}>
+                  <Typography variant="headline" component="h3">
+                    <GridContainer className={classes.container}>
+                      <GridItem xs={12} sm={12} md={2}>
+                        <TextField
+                          id="full-width-text-field"
+                          label="Patient ID"
+                          fullWidth
+                          margin="normal"
+                          name="patient7ID"
+                          className={classes.textField}
+                          value={this.state.patient7ID}
+                          // onChange={this.handleChange}
+                          variant="outlined"
+                          readonly
+                        />
+                      </GridItem>
+                      <GridItem xs={12} sm={12} md={10}>
+                        <TextField
+                          id="full-width-text-static"
+                          label="Patient Name 7"
+                          fullWidth
+                          margin="normal"
+                          name="patient7Name"
+                          className={classes.textField}
+                          value={this.state.patient7Name}
+                          onChange={this.handleChange}
+                          variant="outlined"
+                          required
+                        />
+                      </GridItem>
+                    </GridContainer>
+                  </Typography>
+                  <Typography component="p">
+                    <TextField
+                      id="full-width-text-static"
+                      label="Patient Details 7"
+                      fullWidth
+                      multiline
+                      rows="4"
+                      margin="normal"
+                      name="patient7Details"
+                      className={classes.textField}
+                      value={this.state.patient7Details}
+                      onChange={this.handleChange}
+                      variant="outlined"
+                      required
+                    />
+                    <Button
+                      color="primary"
+                      type="submit"
+                      style={{ "margin-top": "2%" }}
+                    >
+                      Add
+                    </Button>
+                    <Button
+                      color="primary"
+                      type="submit"
+                      onClick={this.handleEdit}
+                      style={{ "margin-top": "2%" }}
+                    >
+                      Edit
+                    </Button>
+                  </Typography>
+                </form>
+              </Paper>
+            </CardBody>
+          </Card>
+        </GridItem>
+      </GridContainer>
     );
   }
 }
 
-Dashboard.propTypes = {
+FilledTextFields.propTypes = {
   classes: PropTypes.object.isRequired
 };
 
-export default withStyles(styles)(Dashboard);
+export default withStyles(styles)(FilledTextFields);
