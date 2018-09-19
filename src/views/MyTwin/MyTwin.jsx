@@ -1,8 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import classNames from "classnames";
 import { withStyles } from "@material-ui/core/styles";
-import MenuItem from "@material-ui/core/MenuItem";
 import TextField from "@material-ui/core/TextField";
 import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
@@ -13,6 +11,7 @@ import Card from "components/Card/Card.jsx";
 import CardHeader from "components/Card/CardHeader.jsx";
 import CardBody from "components/Card/CardBody.jsx";
 import axios from "axios";
+import SweetAlert from "sweetalert2-react";
 
 const styles = theme => ({
   root: {
@@ -80,11 +79,15 @@ class FilledTextFields extends React.Component {
       patient6ID: "6",
       patient7ID: "7",
       id: "1",
-      action: ""
+      action: "",
+      show:false,
+      title:"",
+      text:""
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleEdit = this.handleEdit.bind(this);
+    this.getTwins();
   }
 
   handleChange(event) {
@@ -93,8 +96,6 @@ class FilledTextFields extends React.Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    console.log(event, "event");
-    console.log(this.state, "state");
     var twins = null;
     var serial_no = null;
     var introduction = null;
@@ -143,7 +144,59 @@ class FilledTextFields extends React.Component {
         headers: headers
       })
       .then(response => {
-        console.log(response);
+        this.setState({ show: true , title:"Success", text:"Patient Added Successfully"})
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  }
+
+  getTwins() {
+    var headers = {
+      "x-access-key": "KOOY-9CV8-RO09-Q43W"
+    };
+    axios
+      .get("https://twin-patient.herokuapp.com/api/users/getTwins", {
+        headers: headers
+      })
+      .then(response => {
+        // console.log(response);
+        response.data.message.map(userData => {
+          switch (userData.serial_no) {
+            case 1:
+              this.setState({ patient1Name: userData.twins });
+              this.setState({ patient1Details: userData.introduction });
+              break;
+            case 2:
+              this.setState({ patient2Name: userData.twins });
+              this.setState({ patient2Details: userData.introduction });
+              break;
+            case 3:
+              this.setState({ patient3Name: userData.twins });
+              this.setState({ patient3Details: userData.introduction });
+              break;
+            case 4:
+              this.setState({ patient4Name: userData.twins });
+              this.setState({ patient4Details: userData.introduction });
+              break;
+            case 5:
+              this.setState({ patient5Name: userData.twins });
+              this.setState({ patient5Details: userData.introduction });
+              break;
+            case 6:
+              this.setState({ patient6Name: userData.twins });
+              this.setState({ patient6Details: userData.introduction });
+              break;
+            case 7:
+              this.setState({ patient7Name: userData.twins });
+              this.setState({ patient7Details: userData.introduction });
+              break;
+            default:
+              break;
+          }
+          return userData
+        });
+    
       })
       .catch(error => {
         console.log(error);
@@ -152,8 +205,6 @@ class FilledTextFields extends React.Component {
 
   handleEdit(event) {
     event.preventDefault();
-    console.log(event, "event");
-    console.log(this.state, "state");
     var twins = null;
     var serial_no = null;
     var introduction = null;
@@ -202,7 +253,7 @@ class FilledTextFields extends React.Component {
         headers: headers
       })
       .then(response => {
-        console.log(response);
+         this.setState({ show: true , title:"Success", text:"Patient Edited Successfully"})
       })
       .catch(error => {
         console.log(error);
@@ -215,6 +266,12 @@ class FilledTextFields extends React.Component {
       <GridContainer>
         <GridItem xs={12} sm={12} md={12}>
           <Card>
+            <SweetAlert
+              show={this.state.show}
+              title={this.state.title}
+              text={this.state.text}
+              onConfirm={() => this.setState({ show: false })}
+            />
             <CardHeader color="primary">
               <h4 className={classes.cardTitleWhite}> My Twins</h4>
             </CardHeader>
@@ -234,7 +291,7 @@ class FilledTextFields extends React.Component {
                           value={this.state.patient1ID}
                           onChange={this.handleChange}
                           variant="outlined"
-                          readonly
+                          readOnly
                         />
                       </GridItem>
                       <GridItem xs={12} sm={12} md={10}>
@@ -250,7 +307,6 @@ class FilledTextFields extends React.Component {
                           variant="outlined"
                           required
                         />
-                        <input type="hidden" value={(this.state.id = "1")} />
                       </GridItem>
                     </GridContainer>
                   </Typography>
@@ -306,7 +362,7 @@ class FilledTextFields extends React.Component {
                           value={this.state.patient2ID}
                           // onChange={this.handleChange}
                           variant="outlined"
-                          readonly
+                          readOnly
                         />
                       </GridItem>
                       <GridItem xs={12} sm={12} md={10}>
@@ -377,7 +433,7 @@ class FilledTextFields extends React.Component {
                           value={this.state.patient3ID}
                           // onChange={this.handleChange}
                           variant="outlined"
-                          readonly
+                          readOnly
                         />
                       </GridItem>
                       <GridItem xs={12} sm={12} md={10}>
@@ -448,7 +504,7 @@ class FilledTextFields extends React.Component {
                           value={this.state.patient4ID}
                           // onChange={this.handleChange}
                           variant="outlined"
-                          readonly
+                          readOnly
                         />
                       </GridItem>
                       <GridItem xs={12} sm={12} md={10}>
@@ -519,7 +575,7 @@ class FilledTextFields extends React.Component {
                           value={this.state.patient5ID}
                           // onChange={this.handleChange}
                           variant="outlined"
-                          readonly
+                          readOnly
                         />
                       </GridItem>
                       <GridItem xs={12} sm={12} md={10}>
@@ -535,7 +591,6 @@ class FilledTextFields extends React.Component {
                           variant="outlined"
                           required
                         />
-                        <input type="hidden" value={(this.state.id = "5")} />
                       </GridItem>
                     </GridContainer>
                   </Typography>
@@ -591,7 +646,7 @@ class FilledTextFields extends React.Component {
                           value={this.state.patient6ID}
                           // onChange={this.handleChange}
                           variant="outlined"
-                          readonly
+                          readOnly
                         />
                       </GridItem>
                       <GridItem xs={12} sm={12} md={10}>
@@ -607,7 +662,6 @@ class FilledTextFields extends React.Component {
                           variant="outlined"
                           required
                         />
-                        <input type="hidden" value={(this.state.id = "6")} />
                       </GridItem>
                     </GridContainer>
                   </Typography>
@@ -663,7 +717,7 @@ class FilledTextFields extends React.Component {
                           value={this.state.patient7ID}
                           // onChange={this.handleChange}
                           variant="outlined"
-                          readonly
+                          readOnly
                         />
                       </GridItem>
                       <GridItem xs={12} sm={12} md={10}>
