@@ -1,21 +1,14 @@
 import React from "react";
-// @material-ui/core components
-import PropTypes from "prop-types";
 import withStyles from "@material-ui/core/styles/withStyles";
-import InputLabel from "@material-ui/core/InputLabel";
-// core components
 import GridItem from "components/Grid/GridItem.jsx";
 import GridContainer from "components/Grid/GridContainer.jsx";
-import CustomInput from "components/CustomInput/CustomInput.jsx";
 import Button from "components/CustomButtons/Button.jsx";
 import Card from "components/Card/Card.jsx";
 import CardHeader from "components/Card/CardHeader.jsx";
-import CardAvatar from "components/Card/CardAvatar.jsx";
 import CardBody from "components/Card/CardBody.jsx";
-import CardFooter from "components/Card/CardFooter.jsx";
 import TextField from "@material-ui/core/TextField";
-import avatar from "assets/img/faces/marc.jpg";
 import axios from "axios";
+import SweetAlert from "sweetalert2-react";
 
 const styles = {
   cardCategoryWhite: {
@@ -46,7 +39,10 @@ class Dashboard extends React.Component {
       cardCount: 0,
       data: null,
       input: [],
-      values: []
+      values: [],
+      show: false,
+      title: "",
+      text: ""
     };
 
     this.addCard = this.addCard.bind(this);
@@ -85,12 +81,17 @@ class Dashboard extends React.Component {
   }
 
   render() {
-    const { classes } = this.props;
     return (
       <GridContainer>
         <GridItem xs={12} sm={12} md={12}>
           <form>
             <Card>
+              <SweetAlert
+                show={this.state.show}
+                title={this.state.title}
+                text={this.state.text}
+                onConfirm={() => this.setState({ show: false })}
+              />
               <CardHeader color="primary">
                 <Button onClick={this.addMoreCards}>Add</Button>
                 <Button onClick={this.removeCards}>Remove</Button>
@@ -105,35 +106,35 @@ class Dashboard extends React.Component {
   }
 
   handleEdit() {
-      var cardCount = this.state.cardCount;
-      var treatment = [];
-      for (var i = 0; i < cardCount; i++) {
-        treatment.push(this.state.values[i]);
-      }
-      var allTreatment = treatment.join(";");
-      // allTreatment = allTreatment.replace('[]', '');
-      console.log(allTreatment, "treatment");
+    var cardCount = this.state.cardCount;
+    var treatment = [];
+    for (var i = 0; i < cardCount; i++) {
+      treatment.push(this.state.values[i]);
+    }
+    var allTreatment = treatment.join(";");
+    // allTreatment = allTreatment.replace('[]', '');
+    console.log(allTreatment, "treatment");
 
-      var headers = {
-        "x-access-key": "KOOY-9CV8-RO09-Q43W"
-      };
+    var headers = {
+      "x-access-key": "KOOY-9CV8-RO09-Q43W"
+    };
 
-      var data = {
-        treatment: allTreatment
-      };
-      axios
-          .post(
-            "https://twin-patient.herokuapp.com/api/users/editTreatment",
-            data,
-            { headers: headers }
-          )
-          .then(response => {
-            this.myBestTreatments()
-            console.log(response);
-          })
-          .catch(error => {
-            console.log(error);
-          });
+    var data = {
+      treatment: allTreatment
+    };
+    axios
+      .post(
+        "https://twin-patient.herokuapp.com/api/users/editTreatment",
+        data,
+        { headers: headers }
+      )
+      .then(response => {
+        this.myBestTreatments();
+        this.setState({ show: true , title:"Success", text:"Treatment Updated Successfully"})
+      })
+      .catch(error => {
+        console.log(error);
+      });
   }
 
   enterPressed(event) {
@@ -157,18 +158,18 @@ class Dashboard extends React.Component {
         treatment: allTreatment
       };
       axios
-          .post(
-            "https://twin-patient.herokuapp.com/api/users/setTreatment",
-            data,
-            { headers: headers }
-          )
-          .then(response => {
-            this.myBestTreatments()
-            console.log(response);
-          })
-          .catch(error => {
-            console.log(error);
-          });
+        .post(
+          "https://twin-patient.herokuapp.com/api/users/setTreatment",
+          data,
+          { headers: headers }
+        )
+        .then(response => {
+          this.myBestTreatments();
+          this.setState({ show: true , title:"Success", text:"Treatment Added Successfully"})
+        })
+        .catch(error => {
+          console.log(error);
+        });
     }
   }
 
@@ -201,13 +202,13 @@ class Dashboard extends React.Component {
       };
       axios
         .post(
-          "https://twin-patient.herokuapp.com/api/users/setTreatment",
+          "https://twin-patient.herokuapp.com/api/users/deleteTreatment",
           data,
           { headers: headers }
         )
         .then(response => {
           this.myBestTreatments();
-          console.log(response);
+          this.setState({ show: true , title:"Success", text:"Treatment Added Successfully"})
         })
         .catch(error => {
           console.log(error);

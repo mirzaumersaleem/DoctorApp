@@ -5,10 +5,7 @@ import Input from "@material-ui/core/Input";
 import InputLabel from "@material-ui/core/InputLabel";
 import MenuItem from "@material-ui/core/MenuItem";
 import FormControl from "@material-ui/core/FormControl";
-import ListItemText from "@material-ui/core/ListItemText";
 import Select from "@material-ui/core/Select";
-import Checkbox from "@material-ui/core/Checkbox";
-import Chip from "@material-ui/core/Chip";
 import GridItem from "components/Grid/GridItem.jsx";
 import GridContainer from "components/Grid/GridContainer.jsx";
 import Card from "components/Card/Card.jsx";
@@ -118,30 +115,24 @@ class MultipleSelect extends React.Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    https://twin-patient.herokuapp.com/api/users/setIntroduction"
-    console.log(event, "event");
-    console.log(this.state, "state");
+    var headers = {
+      "x-access-key": "KOOY-9CV8-RO09-Q43W"
+    };
 
-      var headers = {
-        "x-access-key": "KOOY-9CV8-RO09-Q43W"
-      };
-
-      var data = {
-        'introduction':this.state.patientDetails
-      };
-      axios
-          .post(
-            "https://twin-patient.herokuapp.com/api/users/setPriority",
-            data,
-            { headers: headers }
-          )
-          .then(response => {
-            this.myPriorities()
-            console.log(response);
-          })
-          .catch(error => {
-            console.log(error);
-          });
+    var data = {
+      introduction: this.state.patientDetails
+    };
+    axios
+      .post("https://twin-patient.herokuapp.com/api/users/setPriority", data, {
+        headers: headers
+      })
+      .then(response => {
+        this.myPriorities();
+        console.log(response);
+      })
+      .catch(error => {
+        console.log(error);
+      });
   }
 
   render() {

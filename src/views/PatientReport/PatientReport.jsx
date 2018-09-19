@@ -1,6 +1,7 @@
 import React from "react";
-import ReactDOM from "react-dom"; // Example Data
 // @material-ui/core components
+// import ReactDOM from "react-dom";
+import ReactHighcharts from "react-highcharts";
 import PropTypes from "prop-types";
 import withStyles from "@material-ui/core/styles/withStyles";
 // core components
@@ -11,7 +12,6 @@ import CardHeader from "components/Card/CardHeader.jsx";
 import CardBody from "components/Card/CardBody.jsx";
 import CardFooter from "components/Card/CardFooter.jsx";
 import axios from "axios";
-
 // Example Data
 
 const styles = {
@@ -31,6 +31,57 @@ const styles = {
     marginBottom: "3px",
     textDecoration: "none"
   }
+};
+
+const config = {
+  /* HighchartsConfig */
+   title: {
+       text:"Patients Priorities"
+  },
+  xAxis: {
+    categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+  },
+  series: [
+    {
+      data: [
+        {
+          name: "Patient 1",
+          // color: "#00FF00",
+          y: 0
+        },
+        {
+          name: "Patient 2",
+          color: "#FF00FF",
+          y: 5
+        },
+        {
+          name: "Patient 3",
+          color: "#FF00FF",
+          y: 10
+        },
+         {
+          name: "Patient 4",
+          color: "#FF00FF",
+          y: 20
+        },
+         {
+          name: "Patient 5",
+          color: "#FF00FF",
+          y: 25
+        },
+        {
+          name: "Patient 6",
+          color: "#FF00FF",
+          y: 30
+        },
+        {
+          name: "Patient 7",
+          color: "#FF00FF",
+          y: 35
+        }
+      ]
+    }
+  ]
 };
 
 class TableComponent extends React.Component {
@@ -54,21 +105,38 @@ class TableComponent extends React.Component {
       "x-access-key": "KOOY-9CV8-RO09-Q43W"
     };
     axios
-      .get("https://twin-patient.herokuapp.com/api/users/getTwins", {
+      .get("https://twin-patient.herokuapp.com/api/users/getResult", {
         headers: headers
       })
       .then(response => {
-        console.log(response, "response");
-        this.setState({ patients: response.data });
-        this.setState({ patient1: response.data.message[0].twins });
-        this.setState({ patient2: response.data.message[1].twins });
-        this.setState({ patient3: response.data.message[2].twins });
-        this.setState({ patient4: response.data.message[3].twins });
-        this.setState({ patient5: response.data.message[4].twins });
-        this.setState({ patient6: response.data.message[5].twins });
-        this.setState({ patient7: response.data.message[6].twins });
-        // this.state.patient1=response.data.message[0].twins
-        console.log(this.state.patient1, "patient1");
+        response.data.message.map(userData => {
+          switch (userData.patient_no) {
+            case 1:
+              this.setState({ patient1: userData });
+              break;
+            case 2:
+              this.setState({ patient2: userData });
+              break;
+            case 3:
+              this.setState({ patient3: userData });
+              break;
+            case 4:
+              this.setState({ patient4: userData });
+              break;
+            case 5:
+              this.setState({ patient5: userData });
+              break;
+            case 6:
+              this.setState({ patient6: userData });
+              break;
+            case 7:
+              this.setState({ patient7: userData });
+              break;
+            default:
+              break;
+          }
+         return userData
+        });
       })
       .catch(error => {
         console.log(error);
@@ -120,46 +188,46 @@ class TableComponent extends React.Component {
                             scope="rowgroup"
                             style={{ "background-color": "#dfdfff" }}
                           >
-                            Group A
+                          Group A
                           </th>
                           <th scope="row">Twins</th>
-                          <td>{this.state.patient1}</td>
-                          <td>{this.state.patient2}</td>
-                          <td>{this.state.patient3}</td>
-                          <td>{this.state.patient4}</td>
-                          <td>{this.state.patient5}</td>
-                          <td>{this.state.patient6}</td>
-                          <td>{this.state.patient7}</td>
+                          <td>{this.state.patient1 ? this.state.patient1.twin :null}</td>
+                          <td>{this.state.patient2 ? this.state.patient2.twin :null}</td>
+                          <td>{this.state.patient3 ? this.state.patient3.twin :null}</td>
+                          <td>{this.state.patient4 ? this.state.patient4.twin :null}</td>
+                          <td>{this.state.patient5 ? this.state.patient5.twin :null}</td>
+                          <td>{this.state.patient6 ? this.state.patient6.twin :null}</td>
+                          <td>{this.state.patient7 ? this.state.patient7.twin :null}</td>
                         </tr>
                         <tr>
                           <th scope="row">Treatment</th>
-                          <td>A2</td>
-                          <td>A3</td>
-                          <td>A4</td>
-                          <td>A3</td>
-                          <td>A4</td>
-                          <td>A3</td>
-                          <td>A4</td>
+                          <td>{this.state.patient1 ? this.state.patient1.treatment :null}</td>
+                          <td>{this.state.patient2 ? this.state.patient2.treatment :null}</td>
+                          <td>{this.state.patient3 ? this.state.patient3.treatment :null}</td>
+                          <td>{this.state.patient4 ? this.state.patient4.treatment :null}</td>
+                          <td>{this.state.patient5 ? this.state.patient5.treatment :null}</td>
+                          <td>{this.state.patient6 ? this.state.patient6.treatment :null}</td>
+                          <td>{this.state.patient7 ? this.state.patient7.treatment :null}</td>
                         </tr>
                         <tr>
                           <th scope="row">Priorities</th>
-                          <td>A2</td>
-                          <td>A3</td>
-                          <td>A4</td>
-                          <td>A3</td>
-                          <td>A4</td>
-                          <td>A3</td>
-                          <td>A4</td>
+                          <td>{this.state.patient1 ? this.state.patient1.priority :null}</td>
+                          <td>{this.state.patient2 ? this.state.patient2.priority :null}</td>
+                          <td>{this.state.patient3 ? this.state.patient3.priority :null}</td>
+                          <td>{this.state.patient4 ? this.state.patient4.priority :null}</td>
+                          <td>{this.state.patient5 ? this.state.patient5.priority :null}</td>
+                          <td>{this.state.patient6 ? this.state.patient6.priority :null}</td>
+                          <td>{this.state.patient7 ? this.state.patient7.priority :null}</td>
                         </tr>
                         <tr>
                           <th scope="row">Other Description</th>
-                          <td>A2</td>
-                          <td>A3</td>
-                          <td>A4</td>
-                          <td>A3</td>
-                          <td>A4</td>
-                          <td>A3</td>
-                          <td>A4</td>
+                          <td>{this.state.patient1 ? this.state.patient1.description :null}</td>
+                          <td>{this.state.patient2 ? this.state.patient2.description :null}</td>
+                          <td>{this.state.patient3 ? this.state.patient3.description :null}</td>
+                          <td>{this.state.patient4 ? this.state.patient4.description :null}</td>
+                          <td>{this.state.patient5 ? this.state.patient5.description :null}</td>
+                          <td>{this.state.patient6 ? this.state.patient6.description :null}</td>
+                          <td>{this.state.patient7 ? this.state.patient7.description :null}</td>
                         </tr>
                         <tr>
                           <th scope="row" />
@@ -177,46 +245,46 @@ class TableComponent extends React.Component {
                             scope="rowgroup"
                             style={{ "background-color": "#dfdfff" }}
                           >
-                            Group B
+                          Group B
                           </th>
                           <th scope="row">Twins</th>
-                          <td>{this.state.patient1}</td>
-                          <td>{this.state.patient2}</td>
-                          <td>{this.state.patient3}</td>
-                          <td>{this.state.patient4}</td>
-                          <td>{this.state.patient5}</td>
-                          <td>{this.state.patient6}</td>
-                          <td>{this.state.patient7}</td>
+                          <td>{this.state.patient1 ? this.state.patient1.twin :null}</td>
+                          <td>{this.state.patient2 ? this.state.patient2.twin :null}</td>
+                          <td>{this.state.patient3 ? this.state.patient3.twin :null}</td>
+                          <td>{this.state.patient4 ? this.state.patient4.twin :null}</td>
+                          <td>{this.state.patient5 ? this.state.patient5.twin :null}</td>
+                          <td>{this.state.patient6 ? this.state.patient6.twin :null}</td>
+                          <td>{this.state.patient7 ? this.state.patient7.twin :null}</td>
                         </tr>
                         <tr>
                           <th scope="row">Treatment</th>
-                          <td>A2</td>
-                          <td>A3</td>
-                          <td>A4</td>
-                          <td>A3</td>
-                          <td>A4</td>
-                          <td>A3</td>
-                          <td>A4</td>
+                          <td>{this.state.patient1 ? this.state.patient1.treatment :null}</td>
+                          <td>{this.state.patient2 ? this.state.patient2.treatment :null}</td>
+                          <td>{this.state.patient3 ? this.state.patient3.treatment :null}</td>
+                          <td>{this.state.patient4 ? this.state.patient4.treatment :null}</td>
+                          <td>{this.state.patient5 ? this.state.patient5.treatment :null}</td>
+                          <td>{this.state.patient6 ? this.state.patient6.treatment :null}</td>
+                          <td>{this.state.patient7 ? this.state.patient7.treatment :null}</td>
                         </tr>
                         <tr>
                           <th scope="row">Priorities</th>
-                          <td>A2</td>
-                          <td>A3</td>
-                          <td>A4</td>
-                          <td>A3</td>
-                          <td>A4</td>
-                          <td>A3</td>
-                          <td>A4</td>
+                          <td>{this.state.patient1 ? this.state.patient1.priority :null}</td>
+                          <td>{this.state.patient2 ? this.state.patient2.priority :null}</td>
+                          <td>{this.state.patient3 ? this.state.patient3.priority :null}</td>
+                          <td>{this.state.patient4 ? this.state.patient4.priority :null}</td>
+                          <td>{this.state.patient5 ? this.state.patient5.priority :null}</td>
+                          <td>{this.state.patient6 ? this.state.patient6.priority :null}</td>
+                          <td>{this.state.patient7 ? this.state.patient7.priority :null}</td>
                         </tr>
                         <tr>
                           <th scope="row">Other Description</th>
-                          <td>A2</td>
-                          <td>A3</td>
-                          <td>A4</td>
-                          <td>A3</td>
-                          <td>A4</td>
-                          <td>A3</td>
-                          <td>A4</td>
+                          <td>{this.state.patient1 ? this.state.patient1.description :null}</td>
+                          <td>{this.state.patient2 ? this.state.patient2.description :null}</td>
+                          <td>{this.state.patient3 ? this.state.patient3.description :null}</td>
+                          <td>{this.state.patient4 ? this.state.patient4.description :null}</td>
+                          <td>{this.state.patient5 ? this.state.patient5.description :null}</td>
+                          <td>{this.state.patient6 ? this.state.patient6.description :null}</td>
+                          <td>{this.state.patient7 ? this.state.patient7.description :null}</td>
                         </tr>
                         <tr>
                           <th scope="row" />
@@ -234,46 +302,46 @@ class TableComponent extends React.Component {
                             scope="rowgroup"
                             style={{ "background-color": "#dfdfff" }}
                           >
-                            Group C
+                          Group C
                           </th>
                           <th scope="row">Twins</th>
-                          <td>{this.state.patient1}</td>
-                          <td>{this.state.patient2}</td>
-                          <td>{this.state.patient3}</td>
-                          <td>{this.state.patient4}</td>
-                          <td>{this.state.patient5}</td>
-                          <td>{this.state.patient6}</td>
-                          <td>{this.state.patient7}</td>
+                          <td>{this.state.patient1 ? this.state.patient1.twin :null}</td>
+                          <td>{this.state.patient2 ? this.state.patient2.twin :null}</td>
+                          <td>{this.state.patient3 ? this.state.patient3.twin :null}</td>
+                          <td>{this.state.patient4 ? this.state.patient4.twin :null}</td>
+                          <td>{this.state.patient5 ? this.state.patient5.twin :null}</td>
+                          <td>{this.state.patient6 ? this.state.patient6.twin :null}</td>
+                          <td>{this.state.patient7 ? this.state.patient7.twin :null}</td>
                         </tr>
                         <tr>
                           <th scope="row">Treatment</th>
-                          <td>A2</td>
-                          <td>A3</td>
-                          <td>A4</td>
-                          <td>A3</td>
-                          <td>A4</td>
-                          <td>A3</td>
-                          <td>A4</td>
+                          <td>{this.state.patient1 ? this.state.patient1.treatment :null}</td>
+                          <td>{this.state.patient2 ? this.state.patient2.treatment :null}</td>
+                          <td>{this.state.patient3 ? this.state.patient3.treatment :null}</td>
+                          <td>{this.state.patient4 ? this.state.patient4.treatment :null}</td>
+                          <td>{this.state.patient5 ? this.state.patient5.treatment :null}</td>
+                          <td>{this.state.patient6 ? this.state.patient6.treatment :null}</td>
+                          <td>{this.state.patient7 ? this.state.patient7.treatment :null}</td>
                         </tr>
                         <tr>
                           <th scope="row">Priorities</th>
-                          <td>A2</td>
-                          <td>A3</td>
-                          <td>A4</td>
-                          <td>A3</td>
-                          <td>A4</td>
-                          <td>A3</td>
-                          <td>A4</td>
+                          <td>{this.state.patient1 ? this.state.patient1.priority :null}</td>
+                          <td>{this.state.patient2 ? this.state.patient2.priority :null}</td>
+                          <td>{this.state.patient3 ? this.state.patient3.priority :null}</td>
+                          <td>{this.state.patient4 ? this.state.patient4.priority :null}</td>
+                          <td>{this.state.patient5 ? this.state.patient5.priority :null}</td>
+                          <td>{this.state.patient6 ? this.state.patient6.priority :null}</td>
+                          <td>{this.state.patient7 ? this.state.patient7.priority :null}</td>
                         </tr>
                         <tr>
                           <th scope="row">Other Description</th>
-                          <td>A2</td>
-                          <td>A3</td>
-                          <td>A4</td>
-                          <td>A3</td>
-                          <td>A4</td>
-                          <td>A3</td>
-                          <td>A4</td>
+                          <td>{this.state.patient1 ? this.state.patient1.description :null}</td>
+                          <td>{this.state.patient2 ? this.state.patient2.description :null}</td>
+                          <td>{this.state.patient3 ? this.state.patient3.description :null}</td>
+                          <td>{this.state.patient4 ? this.state.patient4.description :null}</td>
+                          <td>{this.state.patient5 ? this.state.patient5.description :null}</td>
+                          <td>{this.state.patient6 ? this.state.patient6.description :null}</td>
+                          <td>{this.state.patient7 ? this.state.patient7.description :null}</td>
                         </tr>
                         <tr>
                           <th scope="row" />
@@ -294,43 +362,43 @@ class TableComponent extends React.Component {
                             Group D
                           </th>
                           <th scope="row">Twins</th>
-                          <td>{this.state.patient1}</td>
-                          <td>{this.state.patient2}</td>
-                          <td>{this.state.patient3}</td>
-                          <td>{this.state.patient4}</td>
-                          <td>{this.state.patient5}</td>
-                          <td>{this.state.patient6}</td>
-                          <td>{this.state.patient7}</td>
+                          <td>{this.state.patient1 ? this.state.patient1.twin :null}</td>
+                          <td>{this.state.patient2 ? this.state.patient2.twin :null}</td>
+                          <td>{this.state.patient3 ? this.state.patient3.twin :null}</td>
+                          <td>{this.state.patient4 ? this.state.patient4.twin :null}</td>
+                          <td>{this.state.patient5 ? this.state.patient5.twin :null}</td>
+                          <td>{this.state.patient6 ? this.state.patient6.twin :null}</td>
+                          <td>{this.state.patient7 ? this.state.patient7.twin :null}</td>
                         </tr>
                         <tr>
                           <th scope="row">Treatment</th>
-                          <td>A2</td>
-                          <td>A3</td>
-                          <td>A4</td>
-                          <td>A3</td>
-                          <td>A4</td>
-                          <td>A3</td>
-                          <td>A4</td>
+                          <td>{this.state.patient1 ? this.state.patient1.treatment :null}</td>
+                          <td>{this.state.patient2 ? this.state.patient2.treatment :null}</td>
+                          <td>{this.state.patient3 ? this.state.patient3.treatment :null}</td>
+                          <td>{this.state.patient4 ? this.state.patient4.treatment :null}</td>
+                          <td>{this.state.patient5 ? this.state.patient5.treatment :null}</td>
+                          <td>{this.state.patient6 ? this.state.patient6.treatment :null}</td>
+                          <td>{this.state.patient7 ? this.state.patient7.treatment :null}</td>
                         </tr>
                         <tr>
                           <th scope="row">Priorities</th>
-                          <td>A2</td>
-                          <td>A3</td>
-                          <td>A4</td>
-                          <td>A3</td>
-                          <td>A4</td>
-                          <td>A3</td>
-                          <td>A4</td>
+                          <td>{this.state.patient1 ? this.state.patient1.priority :null}</td>
+                          <td>{this.state.patient2 ? this.state.patient2.priority :null}</td>
+                          <td>{this.state.patient3 ? this.state.patient3.priority :null}</td>
+                          <td>{this.state.patient4 ? this.state.patient4.priority :null}</td>
+                          <td>{this.state.patient5 ? this.state.patient5.priority :null}</td>
+                          <td>{this.state.patient6 ? this.state.patient6.priority :null}</td>
+                          <td>{this.state.patient7 ? this.state.patient7.priority :null}</td>
                         </tr>
                         <tr>
                           <th scope="row">Other Description</th>
-                          <td>A2</td>
-                          <td>A3</td>
-                          <td>A4</td>
-                          <td>A3</td>
-                          <td>A4</td>
-                          <td>A3</td>
-                          <td>A4</td>
+                          <td>{this.state.patient1 ? this.state.patient1.description :null}</td>
+                          <td>{this.state.patient2 ? this.state.patient2.description :null}</td>
+                          <td>{this.state.patient3 ? this.state.patient3.description :null}</td>
+                          <td>{this.state.patient4 ? this.state.patient4.description :null}</td>
+                          <td>{this.state.patient5 ? this.state.patient5.description :null}</td>
+                          <td>{this.state.patient6 ? this.state.patient6.description :null}</td>
+                          <td>{this.state.patient7 ? this.state.patient7.description :null}</td>
                         </tr>
                         <tr>
                           <th scope="row" />
@@ -345,6 +413,11 @@ class TableComponent extends React.Component {
                   </GridItem>
                 </GridContainer>
               </CardBody>
+              <CardFooter>
+              <div style={{'width': '100%'}}>
+               <ReactHighcharts config={config}></ReactHighcharts>
+               </div>
+              </CardFooter>
             </Card>
           </form>
         </GridItem>

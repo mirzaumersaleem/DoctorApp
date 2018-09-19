@@ -1,21 +1,17 @@
 import React from "react";
 // @material-ui/core components
-import PropTypes from "prop-types";
 import withStyles from "@material-ui/core/styles/withStyles";
-import InputLabel from "@material-ui/core/InputLabel";
 // core components
 import GridItem from "components/Grid/GridItem.jsx";
 import GridContainer from "components/Grid/GridContainer.jsx";
-import CustomInput from "components/CustomInput/CustomInput.jsx";
 import Button from "components/CustomButtons/Button.jsx";
 import Card from "components/Card/Card.jsx";
 import CardHeader from "components/Card/CardHeader.jsx";
-import CardAvatar from "components/Card/CardAvatar.jsx";
 import CardBody from "components/Card/CardBody.jsx";
-import CardFooter from "components/Card/CardFooter.jsx";
 import TextField from "@material-ui/core/TextField";
-import avatar from "assets/img/faces/marc.jpg";
 import axios from "axios";
+import SweetAlert from "sweetalert2-react";
+
 
 const styles = {
   cardCategoryWhite: {
@@ -46,7 +42,10 @@ class Dashboard extends React.Component {
       cardCount: 0,
       data: null,
       input: [],
-      values: []
+      values: [],
+      show:false,
+      title:"",
+      text:""
     };
 
     this.addCard = this.addCard.bind(this);
@@ -85,12 +84,17 @@ class Dashboard extends React.Component {
   }
 
   render() {
-    const { classes } = this.props;
     return (
       <GridContainer>
         <GridItem xs={12} sm={12} md={12}>
           <form>
             <Card>
+              <SweetAlert
+              show={this.state.show}
+              title={this.state.title}
+              text={this.state.text}
+              onConfirm={() => this.setState({ show: false })}
+               />
               <CardHeader color="primary">
                 <Button onClick={this.addMoreCards}>Add</Button>
                 <Button onClick={this.removeCards}>Remove</Button>
@@ -129,7 +133,7 @@ class Dashboard extends React.Component {
           )
           .then(response => {
             this.myPriorities()
-            console.log(response);
+            this.setState({ show: true , title:"Success", text:"Priorities Added Successfully"})
           })
           .catch(error => {
             console.log(error);
@@ -164,7 +168,7 @@ class Dashboard extends React.Component {
           )
           .then(response => {
             this.myPriorities()
-            console.log(response);
+            this.setState({ show: true , title:"Success", text:"Priority Updated Successfully"})
           })
           .catch(error => {
             console.log(error);
@@ -207,7 +211,7 @@ class Dashboard extends React.Component {
         )
         .then(response => {
           this.myPriorities();
-          console.log(response);
+          this.setState({ show: true , title:"Success", text:"Priority Deleted Successfully"})
         })
         .catch(error => {
           console.log(error);
