@@ -1,0 +1,42 @@
+[debug] [2018-09-19T05:54:20.465Z] ----------------------------------------------------------------------
+[debug] [2018-09-19T05:54:20.469Z] Command:       /home/sohail/.nvm/versions/node/v6.2.2/bin/node /home/sohail/.nvm/versions/node/v6.2.2/bin/firebase init
+[debug] [2018-09-19T05:54:20.470Z] CLI Version:   4.2.1
+[debug] [2018-09-19T05:54:20.470Z] Platform:      linux
+[debug] [2018-09-19T05:54:20.470Z] Node Version:  v6.2.2
+[debug] [2018-09-19T05:54:20.470Z] Time:          Wed Sep 19 2018 10:54:20 GMT+0500 (PKT)
+[debug] [2018-09-19T05:54:20.470Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2018-09-19T05:54:20.486Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase"]
+[debug] [2018-09-19T05:54:20.486Z] > authorizing via signed-in user
+[info] 
+     ######## #### ########  ######## ########     ###     ######  ########
+     ##        ##  ##     ## ##       ##     ##  ##   ##  ##       ##
+     ######    ##  ########  ######   ########  #########  ######  ######
+     ##        ##  ##    ##  ##       ##     ## ##     ##       ## ##
+     ##       #### ##     ## ######## ########  ##     ##  ######  ########
+
+You're about to initialize a Firebase project in this directory:
+
+  /home/sohail/JeddahSoft/doctarApp
+
+Before we get started, keep in mind:
+
+  * You are initializing in an existing Firebase project directory
+
+[info] 
+=== Project Setup
+[info] 
+[info] First, let's associate this project directory with a Firebase project.
+[info] You can create multiple project aliases by running firebase use --add, 
+[info] but for now we'll just set up a default project.
+[info] 
+[debug] [2018-09-19T05:54:25.467Z] >>> HTTP REQUEST GET https://admin.firebase.com/v1/projects  
+ 
+[debug] [2018-09-19T05:54:26.969Z] <<< HTTP RESPONSE 200
+[info] 
+=== Hosting Setup
+[info] 
+[info] Your public directory is the folder (relative to your project directory) that
+[info] will contain Hosting assets to be uploaded with firebase deploy. If you
+[info] have a build process for your assets, use your build's output directory.
+[info] 
