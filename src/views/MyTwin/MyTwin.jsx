@@ -149,7 +149,6 @@ class FilledTextFields extends React.Component {
         console.log(error);
       });
   }
-
   getTwins() {
     var headers = {
       "x-access-key": "KOOY-9CV8-RO09-Q43W"
@@ -269,6 +268,22 @@ class FilledTextFields extends React.Component {
     //   })
      
   }
+  handleRefresh(event) {
+    //event.preventDefault();
+    axios({
+      method: "POST",
+      url: "https://twin-patient.herokuapp.com/api/users/refresh",
+      headers: {
+        "x-access-key": "KOOY-9CV8-RO09-Q43W"
+      },
+    }).then(response => {
+      console.log(response )
+      this.setState({ show: true , title:"Success", text:"Ready For New Survey"})
+   })
+   .catch(error => {
+     console.log(error);
+   });
+}
 
   render() {
     const { classes } = this.props;
@@ -284,7 +299,16 @@ class FilledTextFields extends React.Component {
             />
             <CardHeader color="primary">
               <h4 className={classes.cardTitleWhite}> My Twins</h4>
+              <Button
+                      color="secondary"
+                      type="submit"
+                      onClick={this.handleRefresh}
+                      style={{ "margin-top": "2%" ,"margin-left":"80%"}}
+                    >
+                      Refresh
+                    </Button>
             </CardHeader>
+            
             <CardBody>
               <Paper className={classes.root} elevation={1}>
                 <form onSubmit={this.handleSubmit}>

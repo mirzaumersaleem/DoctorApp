@@ -1,38 +1,16 @@
 import React from "react";
-import PropTypes from "prop-types";
-import { withStyles } from "@material-ui/core/styles";
-import Input from "@material-ui/core/Input";
-import InputLabel from "@material-ui/core/InputLabel";
-import MenuItem from "@material-ui/core/MenuItem";
-import FormControl from "@material-ui/core/FormControl";
-import Select from "@material-ui/core/Select";
+import withStyles from "@material-ui/core/styles/withStyles";
 import GridItem from "components/Grid/GridItem.jsx";
 import GridContainer from "components/Grid/GridContainer.jsx";
+import Button from "components/CustomButtons/Button.jsx";
 import Card from "components/Card/Card.jsx";
 import CardHeader from "components/Card/CardHeader.jsx";
 import CardBody from "components/Card/CardBody.jsx";
 import TextField from "@material-ui/core/TextField";
-import CardFooter from "components/Card/CardFooter.jsx";
-import Button from "@material-ui/core/Button";
 import axios from "axios";
+import SweetAlert from "sweetalert2-react";
 
-const styles = theme => ({
-  root: {
-    display: "flex",
-    flexWrap: "wrap"
-  },
-  formControl: {
-    margin: theme.spacing.unit,
-    minWidth: 120,
-    maxWidth: 300
-  },
-  chips: {
-    display: "flex",
-    flexWrap: "wrap"
-  },
-  chip: {
-    margin: theme.spacing.unit / 4
-  },
+const styles = {
   cardCategoryWhite: {
     color: "rgba(255,255,255,.62)",
     margin: "0",
@@ -49,46 +27,32 @@ const styles = theme => ({
     marginBottom: "3px",
     textDecoration: "none"
   }
-});
-
-const ITEM_HEIGHT = 48;
-const ITEM_PADDING_TOP = 8;
-const MenuProps = {
-  PaperProps: {
-    style: {
-      maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
-      width: 250
-    }
-  }
 };
 
-var names = [];
-
-class MultipleSelect extends React.Component {
+class Dashboard extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      name: [],
-      patinet: "",
-      patientDetails: "",
+      min: 0,
+      max: 100,
+      value: 0,
+      cardCount: 0,
       data: null,
-      multiline: "Controlled"
+      input: [],
+      values: [],
+      show: false,
+      title: "",
+      text: ""
     };
-    this.handleSubmit = this.handleSubmit.bind(this);
-    this.mypatients();
+
+    this.addCard = this.addCard.bind(this);
+    this.addMoreCards = this.addMoreCards.bind(this);
+    this.removeCards = this.removeCards.bind(this);
+    this.handleEdit = this.handleEdit.bind(this);
+    this.myBestTreatments();
   }
 
-  handleSelectChange = event => {
-    this.setState({ name: event.target.value });
-  };
-
-  handleChange = name => event => {
-    this.setState({
-      [name]: event.target.value
-    });
-  };
-
-  mypatients() {
+  myBestTreatments() {
     var headers = {
       "x-access-key": "KOOY-9CV8-RO09-Q43W"
     };
@@ -98,14 +62,13 @@ class MultipleSelect extends React.Component {
       })
       .then(response => {
         // console.log(response);
+        this.setState({ cardCount: response.data.message.length });
         this.setState({ data: response.data });
-        var patients = [];
+        var treatment = [];
         for (var i = 0; i < response.data.message.length; i++) {
-          names.push(response.data.message[i]);
+          treatment.push(response.data.message[i].twins);
         }
-        patients = names;
-        console.log(patients, "patients");
-        this.setState({ values: patients });
+        this.setState({ values: treatment });
         console.log(this.state.values, "data");
       })
       .catch(error => {
@@ -113,106 +76,177 @@ class MultipleSelect extends React.Component {
       });
   }
 
-  handleSubmit(event) {
-    event.preventDefault();
-    var headers = {
-      "x-access-key": "KOOY-9CV8-RO09-Q43W"
-    };
-
-    var data = {
-      introduction: this.state.patientDetails
-    };
-    axios
-      .post("https://twin-patient.herokuapp.com/api/users/setPriority", data, {
-        headers: headers
-      })
-      .then(response => {
-        this.myPriorities();
-        console.log(response);
-      })
-      .catch(error => {
-        console.log(error);
-      });
+  onChange(value) {
+    this.setState({ inputvalue: value });
   }
-
   render() {
-    const { classes, theme } = this.props;
-
     return (
       <GridContainer>
         <GridItem xs={12} sm={12} md={12}>
           <form>
             <Card>
+              <SweetAlert
+                show={this.state.show}
+                title={this.state.title}
+                text={this.state.text}
+                onConfirm={() => this.setState({ show: false })}
+              />
               <CardHeader color="primary">
-                <h4 className={classes.cardTitleWhite}> Add Patient Details</h4>
-              </CardHeader>
-              <CardBody>
-                <GridContainer>
-                  <GridItem xs={12} sm={12} md={12}>
-                    <FormControl className={classes.formControl}>
-                      <InputLabel htmlFor="select">Select Patient</InputLabel>
-                      <Select
-                        fullWidth
-                        value={this.state.name}
-                        onChange={this.handleSelectChange}
-                        input={<Input id="select" />}
-                        MenuProps={MenuProps}
-                      >
-                        {names.map(name => (
-                          <MenuItem
-                            key={name}
-                            value={name}
-                            style={{
-                              fontWeight:
-                                this.state.name.indexOf(name) === -1
-                                  ? theme.typography.fontWeightRegular
-                                  : theme.typography.fontWeightMedium
-                            }}
-                          >
-                            {name}
-                          </MenuItem>
-                        ))}
-                      </Select>
-                    </FormControl>
-                  </GridItem>
-                </GridContainer>
-                <GridContainer>
-                  <GridItem xs={12} sm={12} md={12}>
-                    <TextField
-                      id="multiline-flexible"
-                      label="Patient Details"
-                      multiline
-                      fullWidth
-                      rowsMax="4"
-                      value={this.state.patientDetails}
-                      onChange={this.handleChange("patientDetails")}
-                      className={classes.textField}
-                      margin="normal"
-                      required
-                    />
-                  </GridItem>
-                </GridContainer>
-              </CardBody>
-              <CardFooter>
-                <Button
-                  color="primary"
-                  type="submit"
-                  onClick={this.handleSubmit}
-                >
-                  Update Details
-                </Button>
-              </CardFooter>
+                <Button onClick={this.addMoreCards}>Add</Button>
+                {/* <Button onClick={this.removeCards}>Remove</Button> */}
+                <Button onClick={this.handleEdit}>Edit</Button>
+-              </CardHeader>
+              {this.cards()}
             </Card>
           </form>
         </GridItem>
       </GridContainer>
     );
   }
+
+  handleEdit() {
+    var cardCount = this.state.cardCount;
+    var treatment = [];
+    for (var i = 0; i < cardCount; i++) {
+      treatment.push(this.state.values[i]);
+    }
+    var allTreatment = treatment.join(";");
+    // allTreatment = allTreatment.replace('[]', '');
+    console.log(allTreatment, "treatment");
+
+    var headers = {
+      "x-access-key": "KOOY-9CV8-RO09-Q43W"
+    };
+
+    var data = {
+      treatment: allTreatment
+    };
+    axios
+      .post(
+        "https://twin-patient.herokuapp.com/api/users/editTwin",
+        data,
+        { headers: headers }
+      )
+      .then(response => {
+        this.myBestTreatments();
+        this.setState({ show: true , title:"Success", text:"Twin Updated Successfully"})
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  }
+
+  enterPressed(event) {
+    var code = event.keyCode || event.which;
+    if (code === 13) {
+      var cardCount = this.state.cardCount;
+      var treatment = [];
+      for (var i = 0; i < cardCount; i++) {
+        console.log(this.state.values[i], "all other");
+        treatment.push(this.state.values[i]);
+      }
+      var allTreatment = treatment.join(";");
+      // allTreatment = allTreatment.replace('[]', '');
+      console.log(allTreatment, "treatment");
+
+      var headers = {
+        "x-access-key": "KOOY-9CV8-RO09-Q43W"
+      };
+
+      var data = {
+        treatment: allTreatment
+      };
+      axios
+        .post(
+          "https://twin-patient.herokuapp.com/api/users/editTwin",
+          data,
+          { headers: headers }
+        )
+        .then(response => {
+          this.myBestTreatments();
+          this.setState({ show: true , title:"Success", text:"Twin Added Successfully"})
+        })
+        .catch(error => {
+          console.log(error);
+        });
+    }
+  }
+
+  addMoreCards() {
+    var cardCount = this.state.cardCount;
+    this.setState({ cardCount: cardCount + 1 });
+  }
+
+  removeCards() {
+    var cardCount = this.state.cardCount;
+    if (cardCount > 0) {
+      console.log(this.state.cardCount, "t");
+      console.log(this.state.values[cardCount - 1], "t");
+      this.setState({ cardCount: cardCount - 1 });
+      var treatment = [];
+      for (var i = 0; i < cardCount - 1; i++) {
+        console.log(this.state.values[i], "all other");
+        treatment.push(this.state.values[i]);
+      }
+      var allTreatment = treatment.join(";");
+      // allTreatment = allTreatment.replace('[]', '');
+      console.log(allTreatment, "treatment");
+
+      var headers = {
+        "x-access-key": "KOOY-9CV8-RO09-Q43W"
+      };
+
+      var data = {
+        treatment: allTreatment
+      };
+      axios
+        .post(
+          "https://twin-patient.herokuapp.com/api/users/deleteTreatment",
+          data,
+          { headers: headers }
+        )
+        .then(response => {
+          this.myBestTreatments();
+          this.setState({ show: true , title:"Success", text:"Treatment Added Successfully"})
+        })
+        .catch(error => {
+          console.log(error);
+        });
+    }
+  }
+
+  handleChange(i, e) {
+    var newValues = this.state.values.slice();
+    newValues[i] = e.target.value;
+    this.setState({ values: newValues });
+  }
+
+  addCard(cards) {
+    var fieldsArray = [];
+    for (var i = 0; i < cards; i++) {
+      fieldsArray.push(
+        <GridContainer>
+          <GridItem xs={12} sm={12} md={12}>
+            <TextField
+              // label="Patient 1"
+              fullWidth
+              margin="normal"
+              value={this.state.values[i]}
+              name={this.state.values[i]}
+              onKeyPress={this.enterPressed.bind(this)}
+              onChange={this.handleChange.bind(this, i)}
+              required
+            />
+          </GridItem>
+        </GridContainer>
+      );
+    }
+    return <CardBody>{fieldsArray}</CardBody>;
+  }
+
+  cards() {
+    return this.addCard(this.state.cardCount);
+  }
 }
 
-MultipleSelect.propTypes = {
-  classes: PropTypes.object.isRequired,
-  theme: PropTypes.object.isRequired
-};
-
-export default withStyles(styles, { withTheme: true })(MultipleSelect);
+export default withStyles(styles)(Dashboard);
