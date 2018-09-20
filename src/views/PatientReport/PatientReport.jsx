@@ -11,7 +11,9 @@ import Card from "components/Card/Card.jsx";
 import CardHeader from "components/Card/CardHeader.jsx";
 import CardBody from "components/Card/CardBody.jsx";
 import CardFooter from "components/Card/CardFooter.jsx";
+import Button from '@material-ui/core/Button';
 import axios from "axios";
+import Workbook from 'react-excel-workbook'
 // Example Data
 
 const styles = {
@@ -83,6 +85,24 @@ const config = {
     }
   ]
 };
+const data1 = [
+  {
+    foo: '123',
+    bar: '456',
+    baz: '789'
+  },
+  {
+    foo: 'abc',
+    bar: 'dfg',
+    baz: 'hij'
+  },
+  {
+    foo: 'aaa',
+    bar: 'bbb',
+    baz: 'ccc'
+  }
+]
+
 
 class TableComponent extends React.Component {
   constructor(props) {
@@ -246,6 +266,73 @@ class TableComponent extends React.Component {
         console.log(error);
       });
   }
+   printXLS(){
+     let a= new Array();
+     let b=new Array();
+     let c=new Array();
+     let d=new Array();
+     //  b[0]  = new Array()
+    //  c[0]  = new Array()
+    //  d[0]  = new Array()
+     const keys1 = Object.keys(this.state.group_a)
+     const keys2 = Object.keys(this.state.group_b)
+     const keys3 = Object.keys(this.state.group_c)
+     const keys4 = Object.keys(this.state.group_d)
+     for (const key1 of keys1) {
+      a.push(this.state.group_a[key1])
+    }
+    for (const key2 of keys2) {
+      b.push(this.state.group_b[key2])
+    }
+    for (const key3 of keys3) {
+      c.push(this.state.group_c[key3])
+    } for (const key4 of keys4) {
+      d.push(this.state.group_d[key4])
+    }   
+     return( 
+   <div className="row text-center">
+      <Workbook filename="survey.xlsx" element={<Button color="secondary" variant="outlined" ><p>Downloard Patient Report</p></Button>}>
+        <Workbook.Sheet data={a} name="Group A">
+          <Workbook.Column label="id" value="id"/>
+          <Workbook.Column label="description" value="description"/>
+          <Workbook.Column label="panel_id" value="panel_id"/>
+          <Workbook.Column label="patient_no" value="patient_no"/>
+          <Workbook.Column label="priority" value="priority"/>
+          <Workbook.Column label="treatment" value="treatment"/>
+          <Workbook.Column label="twin" value="twin"/> 
+        </Workbook.Sheet>
+        <Workbook.Sheet data={b} name="Group B">
+        <Workbook.Column label="id" value="id"/>
+          <Workbook.Column label="description" value="description"/>
+          <Workbook.Column label="panel_id" value="panel_id"/>
+          <Workbook.Column label="patient_no" value="patient_no"/>
+          <Workbook.Column label="priority" value="priority"/>
+          <Workbook.Column label="treatment" value="treatment"/>
+          <Workbook.Column label="twin" value="twin"/> 
+        </Workbook.Sheet>
+        <Workbook.Sheet data={c} name="Group C">
+        <Workbook.Column label="id" value="id"/>
+          <Workbook.Column label="description" value="description"/>
+          <Workbook.Column label="panel_id" value="panel_id"/>
+          <Workbook.Column label="patient_no" value="patient_no"/>
+          <Workbook.Column label="priority" value="priority"/>
+          <Workbook.Column label="treatment" value="treatment"/>
+          <Workbook.Column label="twin" value="twin"/> 
+        </Workbook.Sheet>
+        <Workbook.Sheet data={d} name="Group D">
+        <Workbook.Column label="id" value="id"/>
+          <Workbook.Column label="description" value="description"/>
+          <Workbook.Column label="panel_id" value="panel_id"/>
+          <Workbook.Column label="patient_no" value="patient_no"/>
+          <Workbook.Column label="priority" value="priority"/>
+          <Workbook.Column label="treatment" value="treatment"/>
+          <Workbook.Column label="twin" value="twin"/> 
+        </Workbook.Sheet>
+      </Workbook>
+    </div>
+    )
+}
+  
   render() {
     const { classes } = this.props;
     // Data
@@ -256,7 +343,7 @@ class TableComponent extends React.Component {
           <form onSubmit={this.handleSubmit}>
             <Card>
               <CardHeader color="primary">
-                <h4 className={classes.cardTitleWhite}>Patient Report</h4>
+              {this.printXLS()}  
               </CardHeader>
               <CardBody>
                 <GridContainer>
