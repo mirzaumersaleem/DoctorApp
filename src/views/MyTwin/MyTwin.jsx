@@ -100,27 +100,27 @@ class FilledTextFields extends React.Component {
     var serial_no = null;
     var introduction = null;
     if (this.state.patient1Name) {
-      twins = this.state.patient1Name;
+     // twins = this.state.patient1Name;
       serial_no = this.state.patient1ID;
       introduction = this.state.patient1Details;
     } else if (this.state.patient2Name) {
-      twins = this.state.patient2Name;
+     // twins = this.state.patient2Name;
       serial_no = this.state.patient2ID;
       introduction = this.state.patient2Details;
     } else if (this.state.patient3Name) {
-      twins = this.state.patient3Name;
+     // twins = this.state.patient3Name;
       serial_no = this.state.patient3ID;
       introduction = this.state.patient3Details;
     } else if (this.state.patient4Name) {
-      twins = this.state.patient4Name;
+     // twins = this.state.patient4Name;
       serial_no = this.state.patient4ID;
       introduction = this.state.patient4Details;
     } else if (this.state.patient5Name) {
-      twins = this.state.patient5Name;
+     // twins = this.state.patient5Name;
       serial_no = this.state.patient5ID;
       introduction = this.state.patient5Details;
     } else if (this.state.patient6Name) {
-      twins = this.state.patient6Name;
+     // twins = this.state.patient6Name;
       serial_no = this.state.patient6ID;
       introduction = this.state.patient6Details;
     }
@@ -133,18 +133,17 @@ class FilledTextFields extends React.Component {
     //   url: 'https://twin-patient.herokuapp.com/api/users/setTwin'
     // };
     var data = {
-      twins: twins,
       serial_no: serial_no,
       introduction: introduction
     };
     console.log(data, "data");
 
     axios
-      .post("https://twin-patient.herokuapp.com/api/users/setTwin", data, {
+      .post("https://twin-patient.herokuapp.com/api/users/setIntro", data, {
         headers: headers
       })
       .then(response => {
-        this.setState({ show: true , title:"Success", text:"Patient Added Successfully"})
+        this.setState({ show: true , title:"Success", text:"Introduction Added Successfully"})
       })
       .catch(error => {
         console.log(error);
@@ -209,27 +208,27 @@ class FilledTextFields extends React.Component {
     var serial_no = null;
     var introduction = null;
     if (this.state.patient1Name) {
-      twins = this.state.patient1Name;
+      //twins = this.state.patient1Name;
       serial_no = this.state.patient1ID;
       introduction = this.state.patient1Details;
     } else if (this.state.patient2Name) {
-      twins = this.state.patient2Name;
+     // twins = this.state.patient2Name;
       serial_no = this.state.patient2ID;
       introduction = this.state.patient2Details;
     } else if (this.state.patient3Name) {
-      twins = this.state.patient3Name;
+      //twins = this.state.patient3Name;
       serial_no = this.state.patient3ID;
       introduction = this.state.patient3Details;
     } else if (this.state.patient4Name) {
-      twins = this.state.patient4Name;
+      //twins = this.state.patient4Name;
       serial_no = this.state.patient4ID;
       introduction = this.state.patient4Details;
     } else if (this.state.patient5Name) {
-      twins = this.state.patient5Name;
+      //twins = this.state.patient5Name;
       serial_no = this.state.patient5ID;
       introduction = this.state.patient5Details;
     } else if (this.state.patient6Name) {
-      twins = this.state.patient6Name;
+      //twins = this.state.patient6Name;
       serial_no = this.state.patient6ID;
       introduction = this.state.patient6Details;
     }
@@ -242,22 +241,33 @@ class FilledTextFields extends React.Component {
     //   url: 'https://twin-patient.herokuapp.com/api/users/setTwin'
     // };
     var data = {
-      twins: twins,
       serial_no: serial_no,
       introduction: introduction
     };
     console.log(data, "data");
+    axios({
+      method: "POST",
+      url: "https://twin-patient.herokuapp.com/api/users/editIntro",
+      headers: {
+        "x-access-key": "KOOY-9CV8-RO09-Q43W"
+      },
+      data: {
+        serial_no: serial_no,
+        introduction: introduction
+      }
+    }) .then(response => {
+      this.setState({ show: true , title:"Success", text:"Introduction Edited Successfully"})
+   })
+   .catch(error => {
+     console.log(error);
+   });
 
-    axios
-      .post("https://twin-patient.herokuapp.com/api/users/editTwin", data, {
-        headers: headers
-      })
-      .then(response => {
-         this.setState({ show: true , title:"Success", text:"Patient Edited Successfully"})
-      })
-      .catch(error => {
-        console.log(error);
-      });
+
+    // axios
+    //   .post("https://twin-patient.herokuapp.com/api/users/editIntro", data, {
+    //     headers: headers
+    //   })
+     
   }
 
   render() {
@@ -294,7 +304,7 @@ class FilledTextFields extends React.Component {
                           readOnly
                         />
                       </GridItem>
-                      <GridItem xs={12} sm={12} md={10}>
+                      {/* <GridItem xs={12} sm={12} md={10}>
                         <TextField
                           id="full-width-text-static"
                           label="Patient Name 1"
@@ -307,7 +317,7 @@ class FilledTextFields extends React.Component {
                           variant="outlined"
                           required
                         />
-                      </GridItem>
+                      </GridItem> */}
                     </GridContainer>
                   </Typography>
                   <Typography component="p">
@@ -365,7 +375,7 @@ class FilledTextFields extends React.Component {
                           readOnly
                         />
                       </GridItem>
-                      <GridItem xs={12} sm={12} md={10}>
+                      {/* <GridItem xs={12} sm={12} md={10}>
                         <TextField
                           id="full-width-text-static"
                           label="Patient Name 2"
@@ -378,7 +388,7 @@ class FilledTextFields extends React.Component {
                           variant="outlined"
                           required
                         />
-                      </GridItem>
+                      </GridItem> */}
                     </GridContainer>
                   </Typography>
                   <Typography component="p">
@@ -436,7 +446,7 @@ class FilledTextFields extends React.Component {
                           readOnly
                         />
                       </GridItem>
-                      <GridItem xs={12} sm={12} md={10}>
+                      {/* <GridItem xs={12} sm={12} md={10}>
                         <TextField
                           id="full-width-text-static"
                           label="Patient Name 3"
@@ -449,7 +459,7 @@ class FilledTextFields extends React.Component {
                           variant="outlined"
                           required
                         />
-                      </GridItem>
+                      </GridItem> */}
                     </GridContainer>
                   </Typography>
                   <Typography component="p">
@@ -507,7 +517,7 @@ class FilledTextFields extends React.Component {
                           readOnly
                         />
                       </GridItem>
-                      <GridItem xs={12} sm={12} md={10}>
+                      {/* <GridItem xs={12} sm={12} md={10}>
                         <TextField
                           id="full-width-text-static"
                           label="Patient Name 4"
@@ -519,8 +529,8 @@ class FilledTextFields extends React.Component {
                           onChange={this.handleChange}
                           variant="outlined"
                           required
-                        />
-                      </GridItem>
+                        /> */}
+                      {/* </GridItem> */}
                     </GridContainer>
                   </Typography>
                   <Typography component="p">
@@ -578,7 +588,7 @@ class FilledTextFields extends React.Component {
                           readOnly
                         />
                       </GridItem>
-                      <GridItem xs={12} sm={12} md={10}>
+                      {/* <GridItem xs={12} sm={12} md={10}>
                         <TextField
                           id="full-width-text-static"
                           label="Patient Name 5"
@@ -591,7 +601,7 @@ class FilledTextFields extends React.Component {
                           variant="outlined"
                           required
                         />
-                      </GridItem>
+                      </GridItem> */}
                     </GridContainer>
                   </Typography>
                   <Typography component="p">
@@ -649,7 +659,7 @@ class FilledTextFields extends React.Component {
                           readOnly
                         />
                       </GridItem>
-                      <GridItem xs={12} sm={12} md={10}>
+                      {/* <GridItem xs={12} sm={12} md={10}>
                         <TextField
                           id="full-width-text-static"
                           label="Patient Name 6"
@@ -662,7 +672,7 @@ class FilledTextFields extends React.Component {
                           variant="outlined"
                           required
                         />
-                      </GridItem>
+                      </GridItem> */}
                     </GridContainer>
                   </Typography>
                   <Typography component="p">
@@ -720,7 +730,7 @@ class FilledTextFields extends React.Component {
                           readOnly
                         />
                       </GridItem>
-                      <GridItem xs={12} sm={12} md={10}>
+                      {/* <GridItem xs={12} sm={12} md={10}>
                         <TextField
                           id="full-width-text-static"
                           label="Patient Name 7"
@@ -733,7 +743,7 @@ class FilledTextFields extends React.Component {
                           variant="outlined"
                           required
                         />
-                      </GridItem>
+                      </GridItem> */}
                     </GridContainer>
                   </Typography>
                   <Typography component="p">
