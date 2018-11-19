@@ -417,7 +417,7 @@ class TableComponent extends React.Component {
      return( 
    <div className="row text-center">
       <Workbook filename="survey.xlsx" element={<Button color="secondary" variant="outlined" ><p>Downloard Patient Report</p></Button>}>
-        <Workbook.Sheet data={a} name="Group A">
+        <Workbook.Sheet data={a} name="Group 1">
           <Workbook.Column label="id" value="id"/>
           <Workbook.Column label="description" value="description"/>
           <Workbook.Column label="panel_id" value="panel_id"/>
@@ -426,7 +426,7 @@ class TableComponent extends React.Component {
           <Workbook.Column label="treatment" value="treatment"/>
           <Workbook.Column label="twin" value="twin"/> 
         </Workbook.Sheet>
-        <Workbook.Sheet data={b} name="Group B">
+        <Workbook.Sheet data={b} name="Group 2">
         <Workbook.Column label="id" value="id"/>
           <Workbook.Column label="description" value="description"/>
           <Workbook.Column label="panel_id" value="panel_id"/>
@@ -435,7 +435,7 @@ class TableComponent extends React.Component {
           <Workbook.Column label="treatment" value="treatment"/>
           <Workbook.Column label="twin" value="twin"/> 
         </Workbook.Sheet>
-        <Workbook.Sheet data={c} name="Group C">
+        <Workbook.Sheet data={c} name="Group 3">
         <Workbook.Column label="id" value="id"/>
           <Workbook.Column label="description" value="description"/>
           <Workbook.Column label="panel_id" value="panel_id"/>
@@ -444,7 +444,7 @@ class TableComponent extends React.Component {
           <Workbook.Column label="treatment" value="treatment"/>
           <Workbook.Column label="twin" value="twin"/> 
         </Workbook.Sheet>
-        <Workbook.Sheet data={d} name="Group D">
+        <Workbook.Sheet data={d} name="Group 4">
         <Workbook.Column label="id" value="id"/>
           <Workbook.Column label="description" value="description"/>
           <Workbook.Column label="panel_id" value="panel_id"/>
@@ -453,7 +453,7 @@ class TableComponent extends React.Component {
           <Workbook.Column label="treatment" value="treatment"/>
           <Workbook.Column label="twin" value="twin"/> 
         </Workbook.Sheet>
-        <Workbook.Sheet data={e} name="Group E">
+        <Workbook.Sheet data={e} name="Group 5">
         <Workbook.Column label="id" value="id"/>
           <Workbook.Column label="description" value="description"/>
           <Workbook.Column label="panel_id" value="panel_id"/>
@@ -462,7 +462,7 @@ class TableComponent extends React.Component {
           <Workbook.Column label="treatment" value="treatment"/>
           <Workbook.Column label="twin" value="twin"/> 
         </Workbook.Sheet>
-        <Workbook.Sheet data={f} name="Group F">
+        <Workbook.Sheet data={f} name="Group 6">
         <Workbook.Column label="id" value="id"/>
           <Workbook.Column label="description" value="description"/>
           <Workbook.Column label="panel_id" value="panel_id"/>
@@ -471,7 +471,7 @@ class TableComponent extends React.Component {
           <Workbook.Column label="treatment" value="treatment"/>
           <Workbook.Column label="twin" value="twin"/> 
         </Workbook.Sheet>
-        <Workbook.Sheet data={g} name="Group G">
+        <Workbook.Sheet data={g} name="Group 7">
         <Workbook.Column label="id" value="id"/>
           <Workbook.Column label="description" value="description"/>
           <Workbook.Column label="panel_id" value="panel_id"/>
@@ -480,7 +480,7 @@ class TableComponent extends React.Component {
           <Workbook.Column label="treatment" value="treatment"/>
           <Workbook.Column label="twin" value="twin"/> 
         </Workbook.Sheet>
-        <Workbook.Sheet data={h} name="Group H">
+        <Workbook.Sheet data={h} name="Group 8">
         <Workbook.Column label="id" value="id"/>
           <Workbook.Column label="description" value="description"/>
           <Workbook.Column label="panel_id" value="panel_id"/>
@@ -540,7 +540,7 @@ class TableComponent extends React.Component {
                             scope="rowgroup"
                             style={{ "background-color": "#dfdfff" }}
                           >
-                          Group A
+                          Group 1
                           </th>
                           <th scope="row">Twins</th>
                           <td>{this.state.group_a[1] ? this.state.group_a[1].twin :null}</td>
@@ -597,7 +597,7 @@ class TableComponent extends React.Component {
                             scope="rowgroup"
                             style={{ "background-color": "#dfdfff" }}
                           >
-                          Group B
+                          Group 2
                           </th>
                           <th scope="row">Twins</th>
                           <td>{this.state.group_b[1] ? this.state.group_b[1].twin :null}</td>
@@ -654,7 +654,7 @@ class TableComponent extends React.Component {
                             scope="rowgroup"
                             style={{ "background-color": "#dfdfff" }}
                           >
-                          Group C
+                          Group 3
                           </th>
                           <th scope="row">Twins</th>
                           <td>{this.state.group_c[1] ? this.state.group_c[1].twin :null}</td>
@@ -711,7 +711,7 @@ class TableComponent extends React.Component {
                             scope="rowgroup"
                             style={{ "background-color": "#dfdfff" }}
                           >
-                            Group D
+                            Group 4
                           </th>
                           <th scope="row">Twins</th>
                           <td>{this.state.group_d[1] ? this.state.group_d[1].twin :null}</td>
@@ -769,7 +769,7 @@ class TableComponent extends React.Component {
                             scope="rowgroup"
                             style={{ "background-color": "#dfdfff" }}
                           >
-                            Group E
+                            Group 5
                           </th>
                           <th scope="row">Twins</th>
                           <td>{this.state.group_e[1] ? this.state.group_e[1].twin :null}</td>
@@ -827,7 +827,7 @@ class TableComponent extends React.Component {
                             scope="rowgroup"
                             style={{ "background-color": "#dfdfff" }}
                           >
-                            Group F
+                            Group 6
                           </th>
                           <th scope="row">Twins</th>
                           <td>{this.state.group_f[1] ? this.state.group_f[1].twin :null}</td>
@@ -885,7 +885,7 @@ class TableComponent extends React.Component {
                             scope="rowgroup"
                             style={{ "background-color": "#dfdfff" }}
                           >
-                            Group G
+                            Group 7
                           </th>
                           <th scope="row">Twins</th>
                           <td>{this.state.group_g[1] ? this.state.group_g[1].twin :null}</td>
@@ -944,7 +944,7 @@ class TableComponent extends React.Component {
                             scope="rowgroup"
                             style={{ "background-color": "#dfdfff" }}
                           >
-                            Group H
+                            Group 8
                           </th>
                           <th scope="row">Twins</th>
                           <td>{this.state.group_h[1] ? this.state.group_h[1].twin :null}</td>
