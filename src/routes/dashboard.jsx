@@ -5,6 +5,7 @@ import PatientReport from ".././views/PatientReport/PatientReport.jsx";
 import MyBestTreatment from ".././views/MyBestTreatment/MyBestTreatment.jsx";
 import Pirority from ".././views/Pirority/Pirority.jsx";
 import PatientDetails from ".././views/PatientDetails/PatientDetails.jsx";
+import Login from ".././views/Login/login.jsx";
 
 const dashboardRoutes = [
   {
@@ -37,7 +38,14 @@ const dashboardRoutes = [
     icon: Person,
     component: PatientReport
   },
-  { redirect: true, path: "/", to: "/mytwin", navbarName: "Redirect" }
+  // {
+  //   path: "/login",
+  //   sidebarName: "Login",
+  //   icon: Person,
+  //   component: Login
+  // },
+  { redirect: true, path: "/", to: "/mytwin", navbarName: "Redirect" },
+  
 ];
 
 export default dashboardRoutes;

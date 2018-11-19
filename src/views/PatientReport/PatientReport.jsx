@@ -113,6 +113,10 @@ class TableComponent extends React.Component {
       group_b: {'1':'','2':'','3':'','4':'','5':'','6':'','7':''},
       group_c: {'1':'','2':'','3':'','4':'','5':'','6':'','7':''},
       group_d: {'1':'','2':'','3':'','4':'','5':'','6':'','7':''},
+      group_e: {'1':'','2':'','3':'','4':'','5':'','6':'','7':''},
+      group_f: {'1':'','2':'','3':'','4':'','5':'','6':'','7':''},
+      group_g: {'1':'','2':'','3':'','4':'','5':'','6':'','7':''},
+      group_h: {'1':'','2':'','3':'','4':'','5':'','6':'','7':''},
       patient1: [],
       patient2: [],
       patient3: [],
@@ -128,6 +132,11 @@ class TableComponent extends React.Component {
     let group_b={'1':'','2':'','3':'','4':'','5':'','6':'','7':''};
     let group_c={'1':'','2':'','3':'','4':'','5':'','6':'','7':''};
     let group_d={'1':'','2':'','3':'','4':'','5':'','6':'','7':''};
+    let group_e={'1':'','2':'','3':'','4':'','5':'','6':'','7':''};
+    let group_f={'1':'','2':'','3':'','4':'','5':'','6':'','7':''};
+    let group_g={'1':'','2':'','3':'','4':'','5':'','6':'','7':''};
+    let group_h={'1':'','2':'','3':'','4':'','5':'','6':'','7':''};
+    
     var headers = {
       "x-access-key": "KOOY-9CV8-RO09-Q43W"
     };
@@ -139,7 +148,7 @@ class TableComponent extends React.Component {
         if(response)
        { 
           response.data.message.map(userData => {
-         // console.log("userData",userData)
+          console.log("userData",userData)
           switch (userData.panel_id) {
             case 1:
               switch(userData.patient_no){
@@ -219,7 +228,6 @@ class TableComponent extends React.Component {
             }
               break;
             case 4:
-
             switch(userData.patient_no){
               case 1:
                       group_d[1]=userData
@@ -244,6 +252,106 @@ class TableComponent extends React.Component {
               break;
             }
               break;
+              case 5:
+              switch(userData.patient_no){
+                case 1:
+                        group_e[1]=userData
+                break;
+                case 2:
+                         group_e[2]=userData
+                break;
+                case 3:
+                         group_e[3]=userData
+                break;
+                case 4:
+                       group_e[4]=userData
+                break;
+                case 5:
+                         group_e[5]=userData
+                break;
+                case 6:
+                       group_e[6]=userData
+                break;
+                case 7:
+                       group_e[7]=userData
+                break;
+              }
+                break;
+                case 6:
+                switch(userData.patient_no){
+                  case 1:
+                          group_f[1]=userData
+                  break;
+                  case 2:
+                           group_f[2]=userData
+                  break;
+                  case 3:
+                          group_f[3]=userData
+                  break;
+                  case 4:
+                         group_f[4]=userData
+                  break;
+                  case 5:
+                           group_f[5]=userData
+                  break;
+                  case 6:
+                         group_f[6]=userData
+                  break;
+                  case 7:
+                         group_f[7]=userData
+                  break;
+                }
+                  break;
+                  case 7:
+                  switch(userData.patient_no){
+                    case 1:
+                            group_g[1]=userData
+                    break;
+                    case 2:
+                             group_g[2]=userData
+                    break;
+                    case 3:
+                            group_g[3]=userData
+                    break;
+                    case 4:
+                           group_g[4]=userData
+                    break;
+                    case 5:
+                             group_g[5]=userData
+                    break;
+                    case 6:
+                           group_g[6]=userData
+                    break;
+                    case 7:
+                           group_g[7]=userData
+                    break;
+                  }
+                    break;
+                    case 8:
+                    switch(userData.patient_no){
+                      case 1:
+                              group_h[1]=userData
+                      break;
+                      case 2:
+                               group_h[2]=userData
+                      break;
+                      case 3:
+                              group_h[3]=userData
+                      break;
+                      case 4:
+                             group_h[4]=userData
+                      break;
+                      case 5:
+                               group_h[5]=userData
+                      break;
+                      case 6:
+                             group_h[6]=userData
+                      break;
+                      case 7:
+                             group_h[7]=userData
+                      break;
+                    }
+                      break;
             // case 5:
             //   this.setState({ patient5: userData });
             //   break;
@@ -256,7 +364,7 @@ class TableComponent extends React.Component {
             default:
               break;
           }
-          this.setState({ group_a,group_b,group_c,group_d });
+          this.setState({ group_a,group_b,group_c,group_d,group_e,group_f,group_g,group_h});
          return userData
         });
       }
@@ -271,6 +379,10 @@ class TableComponent extends React.Component {
      let b=new Array();
      let c=new Array();
      let d=new Array();
+     let e= new Array();
+     let f=new Array();
+     let g=new Array();
+     let h=new Array();
      //  b[0]  = new Array()
     //  c[0]  = new Array()
     //  d[0]  = new Array()
@@ -278,6 +390,10 @@ class TableComponent extends React.Component {
      const keys2 = Object.keys(this.state.group_b)
      const keys3 = Object.keys(this.state.group_c)
      const keys4 = Object.keys(this.state.group_d)
+     const keys5 = Object.keys(this.state.group_e)
+     const keys6 = Object.keys(this.state.group_f)
+     const keys7 = Object.keys(this.state.group_g)
+     const keys8 = Object.keys(this.state.group_h)
      for (const key1 of keys1) {
       a.push(this.state.group_a[key1])
     }
@@ -286,9 +402,18 @@ class TableComponent extends React.Component {
     }
     for (const key3 of keys3) {
       c.push(this.state.group_c[key3])
-    } for (const key4 of keys4) {
+    }for (const key4 of keys4) {
       d.push(this.state.group_d[key4])
-    }   
+    }for (const key5 of keys5) {
+      e.push(this.state.group_e[key5])
+    }for (const key6 of keys6) {
+      f.push(this.state.group_f[key6])
+    }for (const key7 of keys7) {
+      g.push(this.state.group_g[key7])
+    }for (const key8 of keys8) {
+      h.push(this.state.group_h[key8])
+    }      
+
      return( 
    <div className="row text-center">
       <Workbook filename="survey.xlsx" element={<Button color="secondary" variant="outlined" ><p>Downloard Patient Report</p></Button>}>
@@ -320,6 +445,42 @@ class TableComponent extends React.Component {
           <Workbook.Column label="twin" value="twin"/> 
         </Workbook.Sheet>
         <Workbook.Sheet data={d} name="Group D">
+        <Workbook.Column label="id" value="id"/>
+          <Workbook.Column label="description" value="description"/>
+          <Workbook.Column label="panel_id" value="panel_id"/>
+          <Workbook.Column label="patient_no" value="patient_no"/>
+          <Workbook.Column label="priority" value="priority"/>
+          <Workbook.Column label="treatment" value="treatment"/>
+          <Workbook.Column label="twin" value="twin"/> 
+        </Workbook.Sheet>
+        <Workbook.Sheet data={e} name="Group E">
+        <Workbook.Column label="id" value="id"/>
+          <Workbook.Column label="description" value="description"/>
+          <Workbook.Column label="panel_id" value="panel_id"/>
+          <Workbook.Column label="patient_no" value="patient_no"/>
+          <Workbook.Column label="priority" value="priority"/>
+          <Workbook.Column label="treatment" value="treatment"/>
+          <Workbook.Column label="twin" value="twin"/> 
+        </Workbook.Sheet>
+        <Workbook.Sheet data={f} name="Group F">
+        <Workbook.Column label="id" value="id"/>
+          <Workbook.Column label="description" value="description"/>
+          <Workbook.Column label="panel_id" value="panel_id"/>
+          <Workbook.Column label="patient_no" value="patient_no"/>
+          <Workbook.Column label="priority" value="priority"/>
+          <Workbook.Column label="treatment" value="treatment"/>
+          <Workbook.Column label="twin" value="twin"/> 
+        </Workbook.Sheet>
+        <Workbook.Sheet data={g} name="Group G">
+        <Workbook.Column label="id" value="id"/>
+          <Workbook.Column label="description" value="description"/>
+          <Workbook.Column label="panel_id" value="panel_id"/>
+          <Workbook.Column label="patient_no" value="patient_no"/>
+          <Workbook.Column label="priority" value="priority"/>
+          <Workbook.Column label="treatment" value="treatment"/>
+          <Workbook.Column label="twin" value="twin"/> 
+        </Workbook.Sheet>
+        <Workbook.Sheet data={h} name="Group H">
         <Workbook.Column label="id" value="id"/>
           <Workbook.Column label="description" value="description"/>
           <Workbook.Column label="panel_id" value="panel_id"/>
@@ -600,6 +761,240 @@ class TableComponent extends React.Component {
                           <td />
                         </tr>
                       </tbody>
+                      {/* Group E */}
+                      <tbody>
+                        <tr>
+                          <th
+                            rowspan="4"
+                            scope="rowgroup"
+                            style={{ "background-color": "#dfdfff" }}
+                          >
+                            Group E
+                          </th>
+                          <th scope="row">Twins</th>
+                          <td>{this.state.group_e[1] ? this.state.group_e[1].twin :null}</td>
+                          <td>{this.state.group_e[2] ? this.state.group_e[2].twin:null}</td>
+                          <td>{this.state.group_e[3] ? this.state.group_e[3].twin :null}</td>
+                          <td>{this.state.group_e[4] ? this.state.group_e[4].twin:null}</td>
+                          <td>{this.state.group_e[5] ? this.state.group_e[5].twin:null}</td>
+                          <td>{this.state.group_e[6] ? this.state.group_e[6].twin :null}</td>
+                          <td>{this.state.group_e[7] ? this.state.group_e[7].twin:null}</td>
+                        </tr>
+                        <tr>
+                          <th scope="row">Treatment</th>
+                          <td>{this.state.group_e[1] ? this.state.group_e[1].treatment :null}</td>
+                          <td>{this.state.group_e[2] ? this.state.group_e[2].treatment:null}</td>
+                          <td>{this.state.group_e[3] ? this.state.group_e[3].treatment :null}</td>
+                          <td>{this.state.group_e[4] ? this.state.group_e[4].treatment:null}</td>
+                          <td>{this.state.group_e[5] ? this.state.group_e[5].treatment:null}</td>
+                          <td>{this.state.group_e[6] ? this.state.group_e[6].treatment :null}</td>
+                          <td>{this.state.group_e[7] ? this.state.group_e[7].treatment:null}</td>
+                        </tr>
+                        <tr>
+                          <th scope="row">Priorities</th>
+                          <td>{this.state.group_e[1] ? this.state.group_e[1].priority :null}</td>
+                          <td>{this.state.group_e[2] ? this.state.group_e[2].priority:null}</td>
+                          <td>{this.state.group_e[3] ? this.state.group_e[3].priority :null}</td>
+                          <td>{this.state.group_e[4] ? this.state.group_e[4].priority:null}</td>
+                          <td>{this.state.group_e[5] ? this.state.group_e[5].priority:null}</td>
+                          <td>{this.state.group_e[6] ? this.state.group_e[6].priority :null}</td>
+                          <td>{this.state.group_e[7] ? this.state.group_e[7].priority:null}</td>
+                        </tr>
+                        <tr>
+                          <th scope="row">Other Description</th>
+                          <td>{this.state.group_e[1] ? this.state.group_e[1].description :null}</td>
+                          <td>{this.state.group_e[2] ? this.state.group_e[2].description:null}</td>
+                          <td>{this.state.group_e[3] ? this.state.group_e[3].description :null}</td>
+                          <td>{this.state.group_e[4] ? this.state.group_e[4].description:null}</td>
+                          <td>{this.state.group_e[5] ? this.state.group_e[5].description:null}</td>
+                          <td>{this.state.group_e[6] ? this.state.group_e[6].description :null}</td>
+                          <td>{this.state.group_e[7] ? this.state.group_e[7].description:null}</td>
+                        </tr>
+                        <tr>
+                          <th scope="row" />
+                          <td />
+                          <td />
+                          <td />
+                          <td />
+                          <td />
+                        </tr>
+                      </tbody>
+                      {/* Group F */}
+                      <tbody>
+                        <tr>
+                          <th
+                            rowspan="4"
+                            scope="rowgroup"
+                            style={{ "background-color": "#dfdfff" }}
+                          >
+                            Group F
+                          </th>
+                          <th scope="row">Twins</th>
+                          <td>{this.state.group_f[1] ? this.state.group_f[1].twin :null}</td>
+                          <td>{this.state.group_f[2] ? this.state.group_f[2].twin:null}</td>
+                          <td>{this.state.group_f[3] ? this.state.group_f[3].twin :null}</td>
+                          <td>{this.state.group_f[4] ? this.state.group_f[4].twin:null}</td>
+                          <td>{this.state.group_f[5] ? this.state.group_f[5].twin:null}</td>
+                          <td>{this.state.group_f[6] ? this.state.group_f[6].twin :null}</td>
+                          <td>{this.state.group_f[7] ? this.state.group_f[7].twin:null}</td>
+                        </tr>
+                        <tr>
+                          <th scope="row">Treatment</th>
+                          <td>{this.state.group_f[1] ? this.state.group_f[1].treatment :null}</td>
+                          <td>{this.state.group_f[2] ? this.state.group_f[2].treatment:null}</td>
+                          <td>{this.state.group_f[3] ? this.state.group_f[3].treatment :null}</td>
+                          <td>{this.state.group_f[4] ? this.state.group_f[4].treatment:null}</td>
+                          <td>{this.state.group_f[5] ? this.state.group_f[5].treatment:null}</td>
+                          <td>{this.state.group_f[6] ? this.state.group_f[6].treatment :null}</td>
+                          <td>{this.state.group_f[7] ? this.state.group_f[7].treatment:null}</td>
+                        </tr>
+                        <tr>
+                          <th scope="row">Priorities</th>
+                          <td>{this.state.group_f[1] ? this.state.group_f[1].priority :null}</td>
+                          <td>{this.state.group_f[2] ? this.state.group_f[2].priority:null}</td>
+                          <td>{this.state.group_f[3] ? this.state.group_f[3].priority :null}</td>
+                          <td>{this.state.group_f[4] ? this.state.group_f[4].priority:null}</td>
+                          <td>{this.state.group_f[5] ? this.state.group_f[5].priority:null}</td>
+                          <td>{this.state.group_f[6] ? this.state.group_f[6].priority :null}</td>
+                          <td>{this.state.group_f[7] ? this.state.group_f[7].priority:null}</td>
+                        </tr>
+                        <tr>
+                          <th scope="row">Other Description</th>
+                          <td>{this.state.group_f[1] ? this.state.group_f[1].description :null}</td>
+                          <td>{this.state.group_f[2] ? this.state.group_f[2].description:null}</td>
+                          <td>{this.state.group_f[3] ? this.state.group_f[3].description :null}</td>
+                          <td>{this.state.group_f[4] ? this.state.group_f[4].description:null}</td>
+                          <td>{this.state.group_f[5] ? this.state.group_f[5].description:null}</td>
+                          <td>{this.state.group_f[6] ? this.state.group_f[6].description :null}</td>
+                          <td>{this.state.group_f[7] ? this.state.group_f[7].description:null}</td>
+                        </tr>
+                        <tr>
+                          <th scope="row" />
+                          <td />
+                          <td />
+                          <td />
+                          <td />
+                          <td />
+                        </tr>
+                      </tbody>
+                      {/* Group G */}
+                      <tbody>
+                        <tr>
+                          <th
+                            rowspan="4"
+                            scope="rowgroup"
+                            style={{ "background-color": "#dfdfff" }}
+                          >
+                            Group G
+                          </th>
+                          <th scope="row">Twins</th>
+                          <td>{this.state.group_g[1] ? this.state.group_g[1].twin :null}</td>
+                          <td>{this.state.group_g[2] ? this.state.group_g[2].twin:null}</td>
+                          <td>{this.state.group_g[3] ? this.state.group_g[3].twin :null}</td>
+                          <td>{this.state.group_g[4] ? this.state.group_g[4].twin:null}</td>
+                          <td>{this.state.group_g[5] ? this.state.group_g[5].twin:null}</td>
+                          <td>{this.state.group_g[6] ? this.state.group_g[6].twin :null}</td>
+                          <td>{this.state.group_g[7] ? this.state.group_g[7].twin:null}</td>
+                        </tr>
+                        <tr>
+                          <th scope="row">Treatment</th>
+                          <td>{this.state.group_g[1] ? this.state.group_g[1].treatment :null}</td>
+                          <td>{this.state.group_g[2] ? this.state.group_g[2].treatment:null}</td>
+                          <td>{this.state.group_g[3] ? this.state.group_g[3].treatment :null}</td>
+                          <td>{this.state.group_g[4] ? this.state.group_g[4].treatment:null}</td>
+                          <td>{this.state.group_g[5] ? this.state.group_g[5].treatment:null}</td>
+                          <td>{this.state.group_g[6] ? this.state.group_g[6].treatment :null}</td>
+                          <td>{this.state.group_g[7] ? this.state.group_g[7].treatment:null}</td>
+                        </tr>
+                        <tr>
+                          <th scope="row">Priorities</th>
+                          <td>{this.state.group_g[1] ? this.state.group_g[1].priority :null}</td>
+                          <td>{this.state.group_g[2] ? this.state.group_g[2].priority:null}</td>
+                          <td>{this.state.group_g[3] ? this.state.group_g[3].priority :null}</td>
+                          <td>{this.state.group_g[4] ? this.state.group_g[4].priority:null}</td>
+                          <td>{this.state.group_g[5] ? this.state.group_g[5].priority:null}</td>
+                          <td>{this.state.group_g[6] ? this.state.group_g[6].priority :null}</td>
+                          <td>{this.state.group_g[7] ? this.state.group_g[7].priority:null}</td>
+                        </tr>
+                        <tr>
+                          <th scope="row">Other Description</th>
+                          <td>{this.state.group_g[1] ? this.state.group_g[1].description :null}</td>
+                          <td>{this.state.group_g[2] ? this.state.group_g[2].description:null}</td>
+                          <td>{this.state.group_g[3] ? this.state.group_g[3].description :null}</td>
+                          <td>{this.state.group_g[4] ? this.state.group_g[4].description:null}</td>
+                          <td>{this.state.group_g[5] ? this.state.group_g[5].description:null}</td>
+                          <td>{this.state.group_g[6] ? this.state.group_g[6].description :null}</td>
+                          <td>{this.state.group_g[7] ? this.state.group_g[7].description:null}</td>
+                        </tr>
+                        <tr>
+                          <th scope="row" />
+                          <td />
+                          <td />
+                          <td />
+                          <td />
+                          <td />
+                        </tr>
+                      </tbody>
+                      {/* Group H */}
+
+                       <tbody>
+                        <tr>
+                          <th
+                            rowspan="4"
+                            scope="rowgroup"
+                            style={{ "background-color": "#dfdfff" }}
+                          >
+                            Group H
+                          </th>
+                          <th scope="row">Twins</th>
+                          <td>{this.state.group_h[1] ? this.state.group_h[1].twin :null}</td>
+                          <td>{this.state.group_h[2] ? this.state.group_h[2].twin:null}</td>
+                          <td>{this.state.group_h[3] ? this.state.group_h[3].twin :null}</td>
+                          <td>{this.state.group_h[4] ? this.state.group_h[4].twin:null}</td>
+                          <td>{this.state.group_h[5] ? this.state.group_h[5].twin:null}</td>
+                          <td>{this.state.group_h[6] ? this.state.group_h[6].twin :null}</td>
+                          <td>{this.state.group_h[7] ? this.state.group_h[7].twin:null}</td>
+                        </tr>
+                        <tr>
+                          <th scope="row">Treatment</th>
+                          <td>{this.state.group_h[1] ? this.state.group_h[1].treatment :null}</td>
+                          <td>{this.state.group_h[2] ? this.state.group_h[2].treatment:null}</td>
+                          <td>{this.state.group_h[3] ? this.state.group_h[3].treatment :null}</td>
+                          <td>{this.state.group_h[4] ? this.state.group_h[4].treatment:null}</td>
+                          <td>{this.state.group_h[5] ? this.state.group_h[5].treatment:null}</td>
+                          <td>{this.state.group_h[6] ? this.state.group_h[6].treatment :null}</td>
+                          <td>{this.state.group_h[7] ? this.state.group_h[7].treatment:null}</td>
+                        </tr>
+                        <tr>
+                          <th scope="row">Priorities</th>
+                          <td>{this.state.group_h[1] ? this.state.group_h[1].priority :null}</td>
+                          <td>{this.state.group_h[2] ? this.state.group_h[2].priority:null}</td>
+                          <td>{this.state.group_h[3] ? this.state.group_h[3].priority :null}</td>
+                          <td>{this.state.group_h[4] ? this.state.group_h[4].priority:null}</td>
+                          <td>{this.state.group_h[5] ? this.state.group_h[5].priority:null}</td>
+                          <td>{this.state.group_h[6] ? this.state.group_h[6].priority :null}</td>
+                          <td>{this.state.group_h[7] ? this.state.group_h[7].priority:null}</td>
+                        </tr>
+                        <tr>
+                          <th scope="row">Other Description</th>
+                          <td>{this.state.group_h[1] ? this.state.group_h[1].description :null}</td>
+                          <td>{this.state.group_h[2] ? this.state.group_h[2].description:null}</td>
+                          <td>{this.state.group_h[3] ? this.state.group_h[3].description :null}</td>
+                          <td>{this.state.group_h[4] ? this.state.group_h[4].description:null}</td>
+                          <td>{this.state.group_h[5] ? this.state.group_h[5].description:null}</td>
+                          <td>{this.state.group_h[6] ? this.state.group_h[6].description :null}</td>
+                          <td>{this.state.group_h[7] ? this.state.group_h[7].description:null}</td>
+                        </tr>
+                        <tr>
+                          <th scope="row" />
+                          <td />
+                          <td />
+                          <td />
+                          <td />
+                          <td />
+                        </tr>
+                      </tbody>
+
                     </table>
                   </GridItem>
                 </GridContainer>

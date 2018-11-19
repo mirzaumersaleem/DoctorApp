@@ -154,7 +154,7 @@ class Dashboard extends React.Component {
       };
 
       var data = {
-        treatment: allTreatment
+        twins: allTreatment
       };
       axios
         .post(
@@ -164,6 +164,7 @@ class Dashboard extends React.Component {
         )
         .then(response => {
           this.myBestTreatments();
+          console.log("response",response)
           this.setState({ show: true , title:"Success", text:"Twin Added Successfully"})
         })
         .catch(error => {
@@ -197,7 +198,7 @@ class Dashboard extends React.Component {
       };
 
       var data = {
-        treatment: allTreatment
+        twins: allTreatment
       };
       axios
         .post(
