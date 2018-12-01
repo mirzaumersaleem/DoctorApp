@@ -205,8 +205,8 @@ class FilledTextFields extends React.Component {
     var serial_no = null;
     var introduction = null;
     // console.log(this.state,'state')
-    console.log(event,'evetnt')
-    console.log(id,'id')
+    // console.log(event,'evetnt')
+    // console.log(id,'id')
     switch (event) {
       case "1":
         serial_no = this.state.patient1ID;
@@ -232,6 +232,9 @@ class FilledTextFields extends React.Component {
         serial_no = this.state.patient6ID;
         introduction = this.state.patient6Details;
         break;
+      case "7":
+        serial_no = this.state.patient7ID;
+        introduction = this.state.patient7Details;
   
     }
 
@@ -657,7 +660,7 @@ class FilledTextFields extends React.Component {
                     <Button
                       color="primary"
                       type="submit"
-                      onClick={this.handleEdit}
+                      onClick={this.handleEdit.bind(this,this.state.patient5ID)}
                       style={{ "margin-top": "2%" }}
                     >
                       Edit
@@ -728,7 +731,7 @@ class FilledTextFields extends React.Component {
                     <Button
                       color="primary"
                       type="submit"
-                      onClick={this.handleEdit}
+                      onClick={this.handleEdit.bind(this,this.state.patient6ID)}
                       style={{ "margin-top": "2%" }}
                     >
                       Edit
@@ -799,7 +802,7 @@ class FilledTextFields extends React.Component {
                     <Button
                       color="primary"
                       type="submit"
-                      onClick={this.handleEdit}
+                      onClick={this.handleEdit.bind(this,this.state.patient7ID)}
                       style={{ "margin-top": "2%" }}
                     >
                       Edit
