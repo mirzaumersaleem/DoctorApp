@@ -86,7 +86,6 @@ class FilledTextFields extends React.Component {
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
-    this.handleEdit = this.handleEdit.bind(this);
     this.getTwins();
   }
 
@@ -201,36 +200,42 @@ class FilledTextFields extends React.Component {
       });
   }
 
-  handleEdit(event) {
-    event.preventDefault();
+  handleEdit(event,id) {
     var twins = null;
     var serial_no = null;
     var introduction = null;
-    if (this.state.patient1Name) {
-      //twins = this.state.patient1Name;
-      serial_no = this.state.patient1ID;
-      introduction = this.state.patient1Details;
-    } else if (this.state.patient2Name) {
-     // twins = this.state.patient2Name;
-      serial_no = this.state.patient2ID;
-      introduction = this.state.patient2Details;
-    } else if (this.state.patient3Name) {
-      //twins = this.state.patient3Name;
-      serial_no = this.state.patient3ID;
-      introduction = this.state.patient3Details;
-    } else if (this.state.patient4Name) {
-      //twins = this.state.patient4Name;
-      serial_no = this.state.patient4ID;
-      introduction = this.state.patient4Details;
-    } else if (this.state.patient5Name) {
-      //twins = this.state.patient5Name;
-      serial_no = this.state.patient5ID;
-      introduction = this.state.patient5Details;
-    } else if (this.state.patient6Name) {
-      //twins = this.state.patient6Name;
-      serial_no = this.state.patient6ID;
-      introduction = this.state.patient6Details;
+    // console.log(this.state,'state')
+    console.log(event,'evetnt')
+    console.log(id,'id')
+    switch (event) {
+      case "1":
+        serial_no = this.state.patient1ID;
+        introduction = this.state.patient1Details;
+        break;
+      case "2":
+        serial_no = this.state.patient2ID;
+        introduction = this.state.patient2Details;
+        break;
+      case "3":
+        serial_no = this.state.patient3ID;
+        introduction = this.state.patient3Details;
+        break;
+      case "4":
+        serial_no = this.state.patient4ID;
+        introduction = this.state.patient4Details;
+        break;
+      case "5":
+        serial_no = this.state.patient5ID;
+        introduction = this.state.patient5Details;
+        break;
+      case "6":
+        serial_no = this.state.patient6ID;
+        introduction = this.state.patient6Details;
+        break;
+  
     }
+
+    console.log(serial_no,introduction)
 
     var headers = {
       "x-access-key": "KOOY-9CV8-RO09-Q43W"
@@ -368,8 +373,7 @@ class FilledTextFields extends React.Component {
                     </Button>
                     <Button
                       color="primary"
-                      type="submit"
-                      onClick={this.handleEdit}
+                      onClick={this.handleEdit.bind(this,this.state.patient1ID)}
                       style={{ "margin-top": "2%" }}
                     >
                       Edit
@@ -440,7 +444,7 @@ class FilledTextFields extends React.Component {
                     <Button
                       color="primary"
                       type="submit"
-                      onClick={this.handleEdit}
+                      onClick={this.handleEdit.bind(this,this.state.patient2ID)}
                       style={{ "margin-top": "2%" }}
                     >
                       Edit
@@ -511,7 +515,7 @@ class FilledTextFields extends React.Component {
                     <Button
                       color="primary"
                       type="submit"
-                      onClick={this.handleEdit}
+                      onClick={this.handleEdit.bind(this,this.state.patient3ID)}
                       style={{ "margin-top": "2%" }}
                     >
                       Edit
@@ -582,7 +586,7 @@ class FilledTextFields extends React.Component {
                     <Button
                       color="primary"
                       type="submit"
-                      onClick={this.handleEdit}
+                      onClick={this.handleEdit.bind(this,this.state.patient4ID)}
                       style={{ "margin-top": "2%" }}
                     >
                       Edit
